@@ -1,4 +1,8 @@
 ---
 # We need to run apt-get update because /var/cache/apt/lists gets removed
-- include: apt.yml
-- include: packages.yml
+- name: Update apt cache
+  command: "apt-get update"
+
+- name: Install required packages
+  apt: name="{{ item.package }}={{ item.version }}"
+  with_items: discovery_overlay_package_manifest

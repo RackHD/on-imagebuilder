@@ -1,6 +1,6 @@
 debootstrap_arch: amd64
 debootstrap_release: trusty
-initrd_kernel_version: 3.16.0-25-generic
+initrd_kernel_version: 3.16.0-30-generic
 initrd_build_root_size: 1000m
 basefs_build_root_size: 300m
 basefs_image_name: "base.{{ debootstrap_release }}.squashfs.img"
@@ -24,6 +24,9 @@ repository_lists:
 initrd_package_manifest:
   - { package: "curl",            version: "7.35.0-1ubuntu2.5" }
 
+initrd_include_binaries:
+  - curl
+
 basefs_package_manifest:
   - { package: "openssh-server",  version: "1:6.6p1-2ubuntu2.3" }
   - { package: "ipmitool",        version: "1.8.13-1ubuntu0.3" }
@@ -34,7 +37,7 @@ basefs_package_manifest:
   - { package: "nodejs-legacy",   version: "0.10.25~dfsg2-2ubuntu1" }
   - { package: "sudo",            version: "1.8.9p5-1ubuntu1" }
 
-discovery_package_manifest:
+discovery_overlay_package_manifest:
   - { package: "dmidecode",  version: "2.12-2" }
   - { package: "lshw",  version: "02.16-2ubuntu1.2" }
   - { package: "lsscsi",  version: "0.27-2" }

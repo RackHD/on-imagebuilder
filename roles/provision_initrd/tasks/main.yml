@@ -15,8 +15,10 @@
   apt: name="{{ item.package }}={{ item.version }}"
   with_items: initrd_package_manifest
 
-- name: Add curl hook
-  copy: src=curl dest=/etc/initramfs-tools/hooks/ mode=0755
+- name: Add hook scripts to copy package binaries into the initramfs
+  template: src=../../../common/templates/initramfs_hook.j2 
+            dest=/etc/initramfs-tools/hooks/{{ item }} mode=0755
+  with_items: initrd_include_binaries
 
 - name: Add 1_network script to local-top
   copy: src=1_network dest=/etc/initramfs-tools/scripts/local-top/ mode=0755
