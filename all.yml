@@ -1,0 +1,10 @@
+---
+- include: initrd_wrapper.yml
+  vars:
+    provisioner: provision_initrd
+- include: basefs_wrapper.yml
+  vars: 
+    provisioner: provision_rootfs
+- include: overlay_wrapper.yml
+  vars: 
+    provisioner: provision_discovery_overlay

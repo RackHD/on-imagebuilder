@@ -1,0 +1,7 @@
+---
+- name: Install Ubuntu build dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - debootstrap
+    - squashfs-tools
+  when: ansible_distribution == "Ubuntu"

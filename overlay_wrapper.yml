@@ -1,0 +1,17 @@
+---
+- hosts: build_local
+  tasks:
+    - include: common/tasks/unmount_overlay.yml
+    - include: common/tasks/mount_overlay.yml
+
+- hosts: overlay_build_chroot
+  roles:
+    - "{{ provisioner }}"
+  post_tasks:
+    - include: common/tasks/clean_fs.yml
+
+- hosts: build_local
+  roles: 
+    - build_overlay_archive
+  post_tasks:
+    - include: common/tasks/unmount_overlay.yml

@@ -1,0 +1,23 @@
+---
+- hosts: build_local
+  vars:
+    build_root: '{{ initrd_build_env_root }}'
+    build_root_size: '{{ initrd_build_root_size }}'
+  pre_tasks:
+    - include: common/tasks/unmount_rootfs.yml
+    - include: common/tasks/mount_rootfs.yml
+  roles:
+    - make_initrd_build_env
+
+- hosts: initrd_build_env_chroot
+  vars:
+    build_root: '{{ initrd_build_env_root }}'
+  roles:
+    - "{{ provisioner }}"
+    - build_initrd
+
+- hosts: build_local
+  vars:
+    build_root: '{{ initrd_build_env_root }}'
+  tasks:
+    - include: common/tasks/unmount_rootfs.yml

@@ -1,0 +1,24 @@
+---
+- hosts: build_local
+  vars:
+    build_root: '{{ basefs_build_root }}'
+    build_root_size: '{{ basefs_build_root_size }}'
+  pre_tasks:
+    - include: common/tasks/unmount_rootfs.yml
+    - include: common/tasks/mount_rootfs.yml
+  roles:
+    - build_rootfs
+
+- hosts: basefs_build_chroot
+  roles:
+    - "{{ provisioner }}"
+  post_tasks:
+    - include: common/tasks/clean_fs.yml
+
+- hosts: build_local
+  vars:
+    build_root: '{{ basefs_build_root }}'
+  roles: 
+    - build_squashfs
+  post_tasks:
+    - include: common/tasks/unmount_rootfs.yml

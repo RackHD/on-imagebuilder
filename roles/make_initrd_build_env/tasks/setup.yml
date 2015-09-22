@@ -1,0 +1,12 @@
+---
+- name: Install ubuntu build dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - debootstrap
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install CentOS build dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - debootstrap
+  when: ansible_distribution == "CentOS"

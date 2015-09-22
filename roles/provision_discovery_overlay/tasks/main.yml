@@ -1,0 +1,4 @@
+---
+# We need to run apt-get update because /var/cache/apt/lists gets removed
+- include: apt.yml
+- include: packages.yml

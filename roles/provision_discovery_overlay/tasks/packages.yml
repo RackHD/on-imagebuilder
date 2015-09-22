@@ -1,0 +1,4 @@
+---
+- name: Install required packages
+  apt: name="{{ item.package }}={{ item.version }}"
+  with_items: discovery_package_manifest
