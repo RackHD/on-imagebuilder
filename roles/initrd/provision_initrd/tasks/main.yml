@@ -16,7 +16,7 @@
   with_items: initrd_package_manifest
 
 - name: Add hook scripts to copy package binaries into the initramfs
-  template: src=../../../../common/templates/initramfs_hook.j2 
+  template: src="{{ playbook_dir }}/templates/initramfs_hook.j2"
             dest=/etc/initramfs-tools/hooks/{{ item }} mode=0755
   with_items: initrd_include_binaries
 

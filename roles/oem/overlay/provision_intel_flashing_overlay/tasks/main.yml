@@ -10,7 +10,7 @@
   file: path=/opt/intel state=directory
 
 - name: Copy flashupdt tool
-  copy: src=../files/flashupdt dest=/opt/intel/ mode=0755
+  copy: src=flashupdt dest=/opt/intel/ mode=0755
 
 - name: Copy syscfg tool
-  copy: src=../files/syscfg dest=/opt/intel/ mode=0755
+  copy: src=syscfg dest=/opt/intel/ mode=0755

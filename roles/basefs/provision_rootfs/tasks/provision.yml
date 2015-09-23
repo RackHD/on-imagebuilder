@@ -6,10 +6,10 @@
   lineinfile: dest=/etc/hosts line="127.0.0.1 monorail-micro" create=yes state=present
 
 - name: Configure apt
-  copy: src=../../../../common/files/01_nodoc dest=/etc/dpkg/dpkg.cfg.d/01_nodoc
+  copy: src="{{ playbook_dir }}/files/01_nodoc" dest=/etc/dpkg/dpkg.cfg.d/01_nodoc
 
 - name: Configure dpkg
-  copy: src=../../../../common/files/apt.conf dest=/etc/apt/apt.conf
+  copy: src="{{ playbook_dir }}/files/apt.conf" dest=/etc/apt/apt.conf
 
 - name: Configure apt repository lists
   lineinfile: dest={{ item.dest }} line="{{ item.line }}" create=yes state=present
@@ -34,4 +34,4 @@
     - /opt/uploads
 
 - name: Add monorail rc.local script for task running
-  copy: src=../../../../common/files/rc.local dest=/etc/rc.local mode=0755
+  copy: src="{{ playbook_dir }}/files/rc.local" dest=/etc/rc.local mode=0755

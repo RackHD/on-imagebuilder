@@ -7,13 +7,14 @@
            --exclude={{ initrd_build_env_exclude_packages }} 
            {{ debootstrap_release }}
            {{ build_root }}
+           {{ debootstrap_apt_server }}
 
 - name: Configure apt
-  copy: src=../../../../common/files/01_nodoc 
+  copy: src="{{ playbook_dir }}/files/01_nodoc"
         dest={{ build_root }}/etc/dpkg/dpkg.cfg.d/01_nodoc
 
 - name: Configure dpkg
-  copy: src=../../../../common/files/apt.conf 
+  copy: src="{{ playbook_dir }}/files/apt.conf"
         dest={{ build_root }}/etc/apt/apt.conf
 
 - name: Configure apt repository lists

@@ -7,3 +7,4 @@
            --exclude={{ basefs_exclude_packages }} 
            {{ debootstrap_release }}
            {{ build_root }}
+           {{ debootstrap_apt_server }}
