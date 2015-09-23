@@ -9,11 +9,11 @@
            {{ build_root }}
 
 - name: Configure apt
-  copy: src=../../../common/files/01_nodoc 
+  copy: src=../../../../common/files/01_nodoc 
         dest={{ build_root }}/etc/dpkg/dpkg.cfg.d/01_nodoc
 
 - name: Configure dpkg
-  copy: src=../../../common/files/apt.conf 
+  copy: src=../../../../common/files/apt.conf 
         dest={{ build_root }}/etc/apt/apt.conf
 
 - name: Configure apt repository lists

@@ -1,10 +1,12 @@
 ---
-- include: initrd_wrapper.yml
+- include: common/playbooks/initrd_wrapper.yml
   vars:
-    provisioner: provision_initrd
-- include: basefs_wrapper.yml
-  vars: 
-    provisioner: provision_rootfs
-- include: overlay_wrapper.yml
-  vars: 
-    provisioner: provision_discovery_overlay
+    - config_file: vars/initrd.yml
+
+- include: common/playbooks/basefs_wrapper.yml
+  vars:
+    - config_file: vars/basefs.yml
+
+- include: common/playbooks/overlay_wrapper.yml
+  vars:
+    - config_file: vars/discovery_overlay.yml

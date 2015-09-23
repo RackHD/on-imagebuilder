@@ -1,19 +1,8 @@
 debootstrap_arch: amd64
 debootstrap_release: trusty
-initrd_kernel_version: 3.16.0-30-generic
-initrd_build_root_size: 1000m
-basefs_build_root_size: 300m
-basefs_image_name: "base.{{ debootstrap_release }}.squashfs.img"
-squashfs_image_path: "{{ build_artifact_path }}/{{ basefs_image_name }}"
-overlayfs_archive_name: "{{ provisioner }}.overlay.cpio"
 
 # Do not change ansible_dependencies!
 ansible_dependencies: "python,python-apt"
-basefs_exclude_packages: "initramfs-tools,initramfs-tools-bin,busybox-initramfs,\
-                         grub-common,grub-gfxpayload-lists,grub-pc,grub-pc-bin,\
-                         grub2-common,busybox-initramfs"
-initrd_build_env_exclude_packages: "grub-common,grub-gfxpayload-lists,grub-pc,\
-                                    grub-pc-bin,grub2-common"
 
 base_repository_list: "deb http://archive.ubuntu.com/ubuntu/"
 repository_lists:
@@ -21,33 +10,5 @@ repository_lists:
   - { dest: "/etc/apt/sources.list.d/universe.list", line: "{{ base_repository_list }} trusty universe" }
   - { dest: "/etc/apt/sources.list.d/updatesuniverse.list", line: "{{ base_repository_list }} trusty-updates universe" }
 
-initrd_package_manifest:
-  - { package: "curl",            version: "7.35.0-1ubuntu2.5" }
-
-initrd_include_binaries:
-  - curl
-
-basefs_package_manifest:
-  - { package: "openssh-server",  version: "1:6.6p1-2ubuntu2.3" }
-  - { package: "ipmitool",        version: "1.8.13-1ubuntu0.3" }
-  - { package: "curl",            version: "7.35.0-1ubuntu2.5" }
-  - { package: "vim-tiny",        version: "2:7.4.052-1ubuntu3" }
-  - { package: "less",            version: "458-2" }
-  - { package: "nodejs",          version: "0.10.25~dfsg2-2ubuntu1" }
-  - { package: "nodejs-legacy",   version: "0.10.25~dfsg2-2ubuntu1" }
-  - { package: "sudo",            version: "1.8.9p5-1ubuntu1" }
-
-discovery_overlay_package_manifest:
-  - { package: "dmidecode",  version: "2.12-2" }
-  - { package: "lshw",  version: "02.16-2ubuntu1.2" }
-  - { package: "lsscsi",  version: "0.27-2" }
-  - { package: "ethtool",  version: "1:3.13-1" }
-  - { package: "smartmontools",  version: "6.2+svn3841-1.2" }
-  - { package: "ohai",  version: "6.14.0-2" }
-
-intel_overlay_package_manifest:
- - { package: "lib32z1", version: "1:1.2.8.dfsg-1ubuntu1" }
- - { package: "lib32ncurses5", version: "5.9+20140118-1ubuntu1" }
- - { package: "lib32bz2-1.0", version: "1.0.6-5" }
- - { package: "lib32gcc1", version: "1:4.9.1-0ubuntu1" }
- - { package: "lib32stdc++6", version: "4.8.4-2ubuntu1~14.04" }
+squashfs_image_path: "{{ build_artifact_path }}/{{ basefs_image_name }}"
+basefs_image_name: "base.{{ debootstrap_release }}.squashfs.img"
