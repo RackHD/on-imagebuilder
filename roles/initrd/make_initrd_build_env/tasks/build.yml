@@ -1,0 +1,41 @@
+---
+- name: Create debian rootfs environment
+  command: debootstrap 
+           --arch={{ debootstrap_arch }}
+           --variant=minbase 
+           --include={{ ansible_dependencies }} 
+           --exclude={{ initrd_build_env_exclude_packages }} 
+           {{ debootstrap_release }}
+           {{ build_root }}
+           {{ debootstrap_apt_server }}
+
+- name: Configure apt
+  copy: src="{{ playbook_dir }}/files/01_nodoc"
+        dest={{ build_root }}/etc/dpkg/dpkg.cfg.d/01_nodoc
+
+- name: Configure dpkg
+  copy: src="{{ playbook_dir }}/files/apt.conf"
+        dest={{ build_root }}/etc/apt/apt.conf
+
+- name: Configure apt repository lists
+  lineinfile: dest={{ build_root }}/{{ item.dest }}
+              line="{{ item.line }}"
+              create=yes
+              state=present
+  with_items: repository_lists
+
+- name: Assert build host kernel version
+  shell: uname -r | grep "{{ initrd_kernel_version }}"
+  register: host_kernel_equals_initrd_kernel
+  ignore_errors: true
+
+- name: Bind mount to chroot environment
+  mount: name={{ build_root }}/{{ item }} 
+         src=/{{ item }}
+         fstype=none
+         opts="bind"
+         state=mounted
+  with_items:
+    - proc
+    - dev
+  when: "host_kernel_equals_initrd_kernel.rc != 0"

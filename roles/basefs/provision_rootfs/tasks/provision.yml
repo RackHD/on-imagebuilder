@@ -1,0 +1,37 @@
+---
+- name: add monorail user
+  user: name=monorail shell=/bin/bash system=yes password='$6$zKkle4ab$4AiVrxwVv89KRiq1iM/n2cB/NjoRKCVUZkX7Gu5ws8sFDEIiANUoYx7mGqjzcyyiE9OUk0v6YqhGTjeoSPb8T0'
+
+- name: Add monorail host to /etc/hosts
+  lineinfile: dest=/etc/hosts line="127.0.0.1 monorail-micro" create=yes state=present
+
+- name: Configure apt
+  copy: src="{{ playbook_dir }}/files/01_nodoc" dest=/etc/dpkg/dpkg.cfg.d/01_nodoc
+
+- name: Configure dpkg
+  copy: src="{{ playbook_dir }}/files/apt.conf" dest=/etc/apt/apt.conf
+
+- name: Configure apt repository lists
+  lineinfile: dest={{ item.dest }} line="{{ item.line }}" create=yes state=present
+  with_items: repository_lists
+
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Install required packages
+  apt: name="{{ item.package }}={{ item.version }}"
+  with_items: basefs_package_manifest
+
+- name: Add monorail to sudoers file
+  lineinfile: dest=/etc/sudoers.d/11-monorail-user 
+              line="monorail ALL=(ALL) NOPASSWD:ALL" 
+              create=yes state=present
+
+- name: Add commonly used directories
+  file: path={{ item }} state=directory mode=0777
+  with_items:
+    - /opt/downloads
+    - /opt/uploads
+
+- name: Add monorail rc.local script for task running
+  copy: src="{{ playbook_dir }}/files/rc.local" dest=/etc/rc.local mode=0755

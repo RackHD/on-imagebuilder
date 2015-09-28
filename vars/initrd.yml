@@ -1,0 +1,15 @@
+provisioner: roles/initrd/provision_initrd
+
+initrd_kernel_version: 3.16.0-30-generic
+
+build_root: '{{ initrd_build_env_root }}'
+build_root_size: 1000m # Make this large in case we need to install the kernel
+
+initrd_build_env_exclude_packages: "grub-common,grub-gfxpayload-lists,grub-pc,\
+                                    grub-pc-bin,grub2-common"
+
+initrd_package_manifest:
+  - { package: "curl", version: "7.35.0-1ubuntu2.5" }
+
+initrd_include_binaries:
+  - curl

@@ -1,0 +1,12 @@
+---
+- include: common/initrd_wrapper.yml
+  vars:
+    - config_file: vars/initrd.yml
+
+- include: common/basefs_wrapper.yml
+  vars:
+    - config_file: vars/basefs.yml
+
+- include: common/overlay_wrapper.yml
+  vars:
+    - config_file: vars/discovery_overlay.yml

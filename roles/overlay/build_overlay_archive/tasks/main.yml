@@ -1,0 +1,24 @@
+---
+- name: Unmount if existing overlayfs is mounted
+  mount: name={{ overlayfs_build_root }}
+         src=overlayfs
+         fstype=overlayfs
+         state=unmounted
+
+- name: Create build output directory
+  file: path={{ build_artifact_path }} state=directory
+
+- name: Remove existing overlay artifacts
+  file: path={{ build_artifact_path }}/{{ item }} state=absent
+  with_items: 
+    - "{{ overlayfs_archive_name }}"
+    - "{{ overlayfs_archive_name }}.gz"
+
+- name: Archive overlay filesystem
+  sudo: yes
+  shell: find . | cpio -H newc -o > {{ build_artifact_path }}/{{ overlayfs_archive_name }}
+  args: 
+    chdir: "{{ overlayfs_upper_dir }}"
+
+- name: Compress overlay filesystem
+  command: "gzip {{ build_artifact_path }}/{{ overlayfs_archive_name }}"

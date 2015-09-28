@@ -1,0 +1,8 @@
+---
+- include: common/overlay_wrapper.yml
+  vars:
+    - config_file: vars/oem/intel.yml
+
+- include: common/overlay_wrapper.yml
+  vars:
+    - config_file: vars/oem/quanta.yml

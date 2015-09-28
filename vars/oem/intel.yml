@@ -1,0 +1,10 @@
+provisioner: roles/oem/overlay/provision_intel_flashing_overlay
+
+overlayfs_archive_name: "flash_intel.overlay.cpio"
+
+intel_overlay_package_manifest:
+ - { package: "lib32z1", version: "1:1.2.8.dfsg-1ubuntu1" }
+ - { package: "lib32ncurses5", version: "5.9+20140118-1ubuntu1" }
+ - { package: "lib32bz2-1.0", version: "1.0.6-5" }
+ - { package: "lib32gcc1", version: "1:4.9.1-0ubuntu1" }
+ - { package: "lib32stdc++6", version: "4.8.4-2ubuntu1~14.04" }

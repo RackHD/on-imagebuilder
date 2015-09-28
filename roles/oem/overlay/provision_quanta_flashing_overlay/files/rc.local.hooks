@@ -1,0 +1,4 @@
+cd /opt/ami
+sudo ./afulnx_64 /MAKEDRV KERNEL=/lib/modules/$(uname -r)/build
+sudo insmod ./amifldrv_mod.o
+cd -

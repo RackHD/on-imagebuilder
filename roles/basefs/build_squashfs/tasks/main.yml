@@ -1,0 +1,12 @@
+---
+- name: Unmount if existing squashfs image is mounted
+  mount: name={{ overlayfs_lower_dir }}
+         src={{ squashfs_image_path }}
+         fstype=squashfs 
+         state=unmounted
+
+- name: Create build output directory
+  file: path={{ build_artifact_path }} state=directory
+
+- name: Make squashfs image
+  command: mksquashfs {{ basefs_build_root }} {{ squashfs_image_path }}

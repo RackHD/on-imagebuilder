@@ -1,0 +1,14 @@
+---
+- name: Build initrd image
+  shell: >
+    mkinitramfs -v -o 
+    /boot/initrd.img-{{ initrd_kernel_version }} {{ initrd_kernel_version }}
+
+- name: Create build output directory
+  local_action: file path={{ build_artifact_path }} state=directory
+
+- name: Move initrd image to build output directory
+  local_action: >
+      command mv 
+      {{ initrd_build_env_root }}/boot/initrd.img-{{ initrd_kernel_version }}
+      {{ build_artifact_path }}/initrd.img-{{ initrd_kernel_version }}

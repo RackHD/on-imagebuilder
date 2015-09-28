@@ -1,0 +1,7 @@
+---
+- name: Mount rootfs build directory
+  mount: name={{ build_root }} 
+         src=tmpfs 
+         fstype=tmpfs 
+         opts="size={{ build_root_size }}" 
+         state=mounted

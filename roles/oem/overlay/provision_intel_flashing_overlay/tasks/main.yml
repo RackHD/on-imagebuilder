@@ -1,0 +1,16 @@
+---
+- name: Update apt cache
+  command: "apt-get update"
+
+- name: Install 32 bit libraries
+  apt: name="{{ item.package }}={{ item.version }}"
+  with_items: intel_overlay_package_manifest
+
+- name: Make intel tooling directory
+  file: path=/opt/intel state=directory
+
+- name: Copy flashupdt tool
+  copy: src=flashupdt dest=/opt/intel/ mode=0755
+
+- name: Copy syscfg tool
+  copy: src=syscfg dest=/opt/intel/ mode=0755

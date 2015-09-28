@@ -1,0 +1,21 @@
+# Change this if you have an apt-cacher, apt-cacher-ng or apt-proxy 
+# server running to speed up build times significantly
+# e.g. apt_server: 192.168.100.5:3142
+apt_server: archive.ubuntu.com
+
+debootstrap_arch: amd64
+debootstrap_release: trusty
+debootstrap_apt_server: http://{{ apt_server }}/ubuntu
+
+# Do not change ansible_dependencies!
+ansible_dependencies: "python,python-apt"
+
+base_repository_list: "deb http://{{ apt_server }}/ubuntu/"
+repository_lists:
+  - { dest: "/etc/apt/sources.list.d/updates.list", line: "{{ base_repository_list }} trusty-updates main" }
+  - { dest: "/etc/apt/sources.list.d/universe.list", line: "{{ base_repository_list }} trusty universe" }
+  - { dest: "/etc/apt/sources.list.d/updatesuniverse.list", line: "{{ base_repository_list }} trusty-updates universe" }
+
+# Referenced by basefs and overlay roles
+squashfs_image_path: "{{ build_artifact_path }}/{{ basefs_image_name }}"
+basefs_image_name: "base.{{ debootstrap_release }}.squashfs.img"
