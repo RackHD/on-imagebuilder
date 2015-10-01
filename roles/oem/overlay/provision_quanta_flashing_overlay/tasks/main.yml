@@ -1,6 +1,6 @@
 ---
 - name: Build and insert ami kernel driver on start
-  copy: src=rc.local.hooks dest=/etc/rc.local.hooks mode=0755
+  copy: src=rc.local.hooks dest=/opt/rc.local.hooks mode=0755
 
 - name: Copy ami flashing binary
   copy: src=ami dest=/opt

@@ -8,3 +8,13 @@
            {{ debootstrap_release }}
            {{ build_root }}
            {{ debootstrap_apt_server }}
+
+- name: Bind mount to chroot environment
+  mount: name={{ build_root }}/{{ item }} 
+         src=/{{ item }}
+         fstype=none
+         opts="bind"
+         state=mounted
+  with_items:
+    - proc
+    - dev

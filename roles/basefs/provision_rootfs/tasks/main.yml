@@ -1,4 +1,2 @@
 ---
 - include: provision.yml
-  vars:
-    rc_local_hooks: ''
