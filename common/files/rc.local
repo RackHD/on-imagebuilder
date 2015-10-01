@@ -38,9 +38,9 @@ then
 
     set -x
 
-    if [ -f /etc/rc.local.hooks ];
+    if [ -f /opt/rc.local.hooks ];
     then
-        /etc/rc.local.hooks
+        /opt/rc.local.hooks
     fi
 
     curl -s http://${CB}/api/current/tasks/bootstrap.js?macAddress=${bootif_mac} | nodejs >/tmp/boostrap.log

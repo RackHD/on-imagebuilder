@@ -8,5 +8,24 @@
 - name: Create build output directory
   file: path={{ build_artifact_path }} state=directory
 
+- name: Remount build root to smaller size
+  mount: name={{ build_root }} 
+         src=tmpfs 
+         fstype=tmpfs 
+         opts="remount,size={{ build_root_build_size }}" 
+         state=mounted
+
+- name: Unmount bind mounts from build root
+  mount: name={{ build_root }}/{{ item }}
+         src=none
+         fstype=none
+         state=unmounted
+  with_items:
+    - proc
+    - dev
+
+- name: Remove old squashfs image to prevent mksquashfs from merging
+  file: path={{ squashfs_image_path }} state=absent
+
 - name: Make squashfs image
-  command: mksquashfs {{ basefs_build_root }} {{ squashfs_image_path }}
+  command: mksquashfs {{ build_root }} {{ squashfs_image_path }}

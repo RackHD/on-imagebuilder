@@ -2,14 +2,8 @@
 - name: Update apt cache
   apt: update_cache=yes
 
-- name: Assert build host kernel version
-  shell: uname -r | grep "{{ initrd_kernel_version }}"
-  register: host_kernel_equals_initrd_kernel
-  ignore_errors: true
-
 - name: Install initrd kernel dependencies
   apt: name=linux-image-{{ initrd_kernel_version }}
-  when: "host_kernel_equals_initrd_kernel.rc != 0"
 
 - name: Install required packages
   apt: name="{{ item.package }}={{ item.version }}"

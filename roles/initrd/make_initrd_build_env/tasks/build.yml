@@ -24,11 +24,6 @@
               state=present
   with_items: repository_lists
 
-- name: Assert build host kernel version
-  shell: uname -r | grep "{{ initrd_kernel_version }}"
-  register: host_kernel_equals_initrd_kernel
-  ignore_errors: true
-
 - name: Bind mount to chroot environment
   mount: name={{ build_root }}/{{ item }} 
          src=/{{ item }}
@@ -38,4 +33,3 @@
   with_items:
     - proc
     - dev
-  when: "host_kernel_equals_initrd_kernel.rc != 0"
