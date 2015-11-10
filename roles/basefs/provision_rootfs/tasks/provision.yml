@@ -41,6 +41,9 @@
   shell: cp {{ item.path }}/{{ item.driver }} {{ basefs_extra_drivers_path }}/{{ item.driver }}
   with_items: basefs_extra_drivers
 
+- name: Create build output directory
+  file: path={{ build_artifact_path }} state=directory
+
 - name: Move target kernel to build output directory
   local_action: >
       command mv 
