@@ -1,0 +1,4 @@
+#!ipxe
+echo MonoRail iPXE
+set user-class MonoRail
+autoboot

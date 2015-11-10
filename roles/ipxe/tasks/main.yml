@@ -1,0 +1,69 @@
+---
+- name: install git
+  apt: name=git state=present
+  sudo: yes
+
+- name: install liblzma-dev
+  apt: name=liblzma-dev state=present
+  sudo: yes
+
+- name: install syslinx and genisoimage
+  apt: name=syslinux state=present
+  apt: name=genisoimage state=present
+  sudo: yes
+
+- name: check out a iPXE source repository
+  git:  repo=https://git.ipxe.org/ipxe.git
+        dest="{{ ansible_env.HOME }}/ipxe"
+        accept_hostkey=yes
+
+- name: Grab all recent versions from website
+  command: git fetch --all
+  args:
+    chdir: "{{ ansible_env.HOME }}/ipxe"
+
+- name: Checkout out version
+  command: git checkout {{ gitbranch }}
+  args:
+    chdir: "{{ ansible_env.HOME }}/ipxe"
+
+- name: Reset to latest from origin
+  command: git reset --hard origin/{{ gitbranch }}
+  args:
+    chdir: "{{ ansible_env.HOME }}/ipxe"
+
+- name: copy in general.h configuration file for build
+  copy: src=general.h dest="{{ ansible_env.HOME }}/ipxe/src/config/local/general.h"
+  sudo: no
+
+- name: copy in the default.ipxe script
+  copy: src=default.ipxe dest="{{ ansible_env.HOME }}/ipxe/src/default.ipxe"
+  sudo: no
+
+- name: clean the build
+  command: make clean
+  args:
+    chdir: "{{ ansible_env.HOME }}/ipxe/src"
+
+- name: build the general code
+  command: make EMBED=default.ipxe
+  args:
+    chdir: "{{ ansible_env.HOME }}/ipxe/src"
+
+- name: fetch the resulting files
+  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/{{ item }} dest=/tmp fail_on_missing=yes
+  with_items:
+    - ipxe.pxe
+    - intel.pxe
+    - undionly.kpxe
+
+# - name: clean the build
+#   command: make clean
+#   args:
+#     chdir: "{{ ansible_env.HOME }}/ipxe/src"
+
+# - name: build the debug code
+#   command: make DEBUG=pci,device,intel,undinet,undionly EMBED=default.ipxe
+#   command: make DEBUG=pci,device,intel bin/intel.pxe EMBED=default.ipxe
+#   args:
+#     chdir: "{{ ansible_env.HOME }}/ipxe/src"
