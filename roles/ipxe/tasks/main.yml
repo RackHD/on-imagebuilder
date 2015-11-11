@@ -12,25 +12,11 @@
   apt: name=genisoimage state=present
   sudo: yes
 
-- name: check out a iPXE source repository
+- name: check out iPXE source repository
   git:  repo=https://git.ipxe.org/ipxe.git
         dest="{{ ansible_env.HOME }}/ipxe"
-        accept_hostkey=yes
-
-- name: Grab all recent versions from website
-  command: git fetch --all
-  args:
-    chdir: "{{ ansible_env.HOME }}/ipxe"
-
-- name: Checkout out version
-  command: git checkout {{ gitbranch }}
-  args:
-    chdir: "{{ ansible_env.HOME }}/ipxe"
-
-- name: Reset to latest from origin
-  command: git reset --hard origin/{{ gitbranch }}
-  args:
-    chdir: "{{ ansible_env.HOME }}/ipxe"
+        force=yes accept_hostkey=yes
+        version={{ gitbranch }}
 
 - name: copy in general.h configuration file for build
   copy: src=general.h dest="{{ ansible_env.HOME }}/ipxe/src/config/local/general.h"
@@ -51,10 +37,11 @@
     chdir: "{{ ansible_env.HOME }}/ipxe/src"
 
 - name: fetch the resulting files
-  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/{{ item }} dest=/tmp fail_on_missing=yes
+  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/{{ item }} 
+         dest=/tmp/on-imagebuilder/ipxe/{{ item }} fail_on_missing=yes
+         flat=yes
   with_items:
     - ipxe.pxe
-    - intel.pxe
     - undionly.kpxe
 
 # - name: clean the build
