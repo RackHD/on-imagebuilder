@@ -1,0 +1,23 @@
+language: bash
+sudo: required
+dist: trusty
+before_script:
+# Rollback to 3.13 until initrd boot issue has been resolved
+- sed -i 's/3.16.0-25-generic/3.13.0-32-generic/g' group_vars/on_imagebuild
+- sed -i '24,25 s/^/#/' vars/basefs.yml
+- sudo apt-add-repository -y ppa:ansible/ansible
+- sudo apt-get update -q
+- sudo apt-get install -y -q ansible=1.5.4+dfsg-1 
+- sudo modprobe overlayfs
+script:
+- sudo ansible-playbook -i hosts all.yml
+before_deploy:
+- sudo chmod 644 /tmp/on-imagebuilder/builds/*
+- sudo chmod 644 /tmp/on-imagebuilder/ipxe/*
+deploy: 
+  provider: bintray
+  file: .bintray.json
+  user: $BINTRAY_USER
+  key: $BINTRAY_KEY
+  on:
+    all_branches: true

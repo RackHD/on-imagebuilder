@@ -12,6 +12,10 @@
   apt: name=genisoimage state=present
   sudo: yes
 
+- name: install binutils
+  apt: name=binutils state=present
+  sudo: yes
+
 - name: check out iPXE source repository
   git:  repo=https://git.ipxe.org/ipxe.git
         dest="{{ ansible_env.HOME }}/ipxe"

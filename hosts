@@ -15,6 +15,8 @@ initrd_build_env_root=/tmp/on-imagebuilder/initrd_build_env/rootfs
 basefs_build_root=/tmp/on-imagebuilder/base/rootfs
 overlayfs_lower_dir=/tmp/on-imagebuilder/overlay/lower
 overlayfs_upper_dir=/tmp/on-imagebuilder/overlay/upper
+overlayfs_work_dir=/tmp/on-imagebuilder/overlay/work
+
 overlayfs_build_root=/tmp/on-imagebuilder/overlay/root
 build_artifact_path=/tmp/on-imagebuilder/builds
 

@@ -12,10 +12,20 @@
     - "{{ overlayfs_lower_dir }}"
     - "{{ overlayfs_upper_dir }}"
     - "{{ overlayfs_build_root }}"
+    - "{{ overlayfs_work_dir }}"
 
-- name: Mount overlay
+- name: Mount overlayfs
+  when: kernel_major | int == 3 and kernel_minor | int <= 16 
   mount: name={{ overlayfs_build_root }}
          src=overlayfs
          fstype=overlayfs
          opts="rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }}"
+         state=mounted
+
+- name: Mount overlay
+  when: kernel_major | int == 3 and kernel_minor | int >= 18
+  mount: name={{ overlayfs_build_root }}
+         src=overlay
+         fstype=overlay
+         opts="rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }},workdir={{ overlayfs_work_dir }}"
          state=mounted
