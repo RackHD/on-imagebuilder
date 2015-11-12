@@ -10,3 +10,7 @@
 - include: common/overlay_wrapper.yml
   vars:
     - config_file: vars/discovery_overlay.yml
+
+- include: common/ipxe_builder.yml
+  vars:
+    - config_file: vars/ipxe.yml
