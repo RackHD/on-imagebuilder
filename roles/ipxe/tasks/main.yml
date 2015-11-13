@@ -13,7 +13,7 @@
   sudo: yes
 
 - name: install binutils
-  apt: name=binutils state=present
+  apt: name=binutils-dev state=present
   sudo: yes
 
 - name: install libiberty-dev
