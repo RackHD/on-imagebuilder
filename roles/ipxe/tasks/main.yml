@@ -14,6 +14,9 @@
 
 - name: install binutils
   apt: name=binutils state=present
+  sudo: yes
+
+- name: install libiberty-dev
   apt: name=libiberty-dev state=present
   sudo: yes
 
