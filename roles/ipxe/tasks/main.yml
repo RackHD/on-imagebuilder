@@ -14,6 +14,7 @@
 
 - name: install binutils
   apt: name=binutils state=present
+  apt: name=libiberty-dev state=present
   sudo: yes
 
 - name: check out iPXE source repository
@@ -40,6 +41,16 @@
   args:
     chdir: "{{ ansible_env.HOME }}/ipxe/src"
 
+- name: build the general efi 64
+  command: make bin-x86_64-efi/snponly.efi EMBED=default.ipxe
+  args:
+    chdir: "{{ ansible_env.HOME }}/ipxe/src"
+
+#- name: build the general code efi 32
+#  command: make bin-i386-efi/snponly.efi
+#  args:
+#    chdir: "{{ ansible_env.HOME }}/ipxe/src"
+
 - name: fetch the resulting files
   fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/{{ item }} 
          dest=/tmp/on-imagebuilder/ipxe/{{ item }} fail_on_missing=yes
@@ -47,6 +58,20 @@
   with_items:
     - ipxe.pxe
     - undionly.kpxe
+
+- name: fetch the resulting files efi 64 bit file
+  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin-x86_64-efi/{{ item }}
+        dest=/tmp/on-imagebuilder/ipxe/bin-x86_64-efi{{ item }} fail_on_missing=yes
+        flat=yes
+  with_items:
+    - snponly.efi
+
+#- name: fetch the resulting efi 32 bit file
+#  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin-i386-efi/{{ item }}
+#        dest=/tmp/on-imagebuilder/ipxe/bin-i386-efi/{{ item }} fail_on_missing=yes
+#        flat=yes
+#  with_items:
+#    - snponly.efi
 
 # - name: clean the build
 #   command: make clean
