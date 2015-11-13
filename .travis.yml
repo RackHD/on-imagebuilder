@@ -21,3 +21,11 @@ deploy:
   key: $BINTRAY_KEY
   on:
     all_branches: true
+
+notifications:
+  slack:
+    rooms:
+    - secure: "LL9DcQQBGZ7IhpzGHRsjFGjEjGFBCG5y4yDIWeGhKZGpFPzbHF2BJXRqdsnDiRozJ2b8BbYPDAcxwEUb6k8pN2Q8TWbGEzHApBfK/ak0T4X49mbjb3I/v218MUkMjPT5G6kTUY1t8WekQDt3Wo5IokZN1iOvy+Trz40/hsRuhN5YCH3MHUrWMCIlwJVbXD1kofw090CY9xc6XVmzgXMHXyVA+TfkOzJQ2T1DCdw4wqe5p3O9Y9/um3NGbCMbbpCTto2iMoiGOu03S+m/YDOgtT+15ieST3nhvFnuskpeWbYQ89nLqNbwjXchBr0G1Wy7l3M3eARA+drYHW7MnNwbUuTRn+EyLUu/xs32iRfMS4K77KD5zXfKnKWzpMLh3ckwpcliL7njoDoCn76p1d5GmlaBTyCWKNJudmAzgDYawmZOAfVzn/Keag5LoAdkQ9s3nVS2A1c/p1oGCWxYT69mZqigSClrlWO1uyUpReiw+2ZJNIerwn1aRQWCFcNefnTw+G81fxzRq68hJsg3MhrpQu57DIALg7ZJ95WqpfG91y0YaXgqfP3TDDtsxYSVGKcNsqTqPeNkatjaZuqqVVb/LfISIIoGV57/0CQbsA6seH8veJAtMn19kBCBJRqwPC6grMBOcd9nzZCLipW0a6cRWiomhfeLteo/vewmbo4c/kU="
+    on_success: never
+    on_failure: always
+    on_start: never
