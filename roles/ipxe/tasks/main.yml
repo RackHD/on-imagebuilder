@@ -64,7 +64,7 @@
 
 - name: fetch the resulting files efi 64 bit file
   fetch: src={{ ansible_env.HOME }}/ipxe/src/bin-x86_64-efi/{{ item }}
-        dest=/tmp/on-imagebuilder/ipxe/bin-x86_64-efi{{ item }} fail_on_missing=yes
+        dest=/tmp/on-imagebuilder/ipxe/bin-x86_64-efi/{{ item }} fail_on_missing=yes
         flat=yes
   with_items:
     - snponly.efi
