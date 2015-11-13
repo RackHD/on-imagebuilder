@@ -5,10 +5,18 @@
          fstype=squashfs 
          state=unmounted
 
-- name: Unmount any existing overlays
+- name: Unmount any existing overlayfs
+  when: kernel_major | int == 3 and kernel_minor | int <= 16
   mount: name={{ overlayfs_build_root }}
          src=overlayfs
          fstype=overlayfs
+         state=unmounted
+
+- name: Unmount any existing overlay
+  when: kernel_major | int == 3 and kernel_minor | int >= 18
+  mount: name={{ overlayfs_build_root }}
+         src=overlay
+         fstype=overlay
          state=unmounted
 
 - name: Remove any old overlay directories
@@ -16,4 +24,5 @@
   with_items:
     - "{{ overlayfs_lower_dir }}"
     - "{{ overlayfs_upper_dir }}"
+    - "{{ overlayfs_work_dir }}"
     - "{{ overlayfs_build_root }}"

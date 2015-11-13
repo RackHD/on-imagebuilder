@@ -21,3 +21,7 @@ repository_lists:
 # Referenced by basefs and overlay roles
 squashfs_image_path: "{{ build_artifact_path }}/{{ basefs_image_name }}"
 basefs_image_name: "base.{{ debootstrap_release }}.{{ ubuntu_kernel_version }}.squashfs.img"
+
+# Local running kernel major.minor version
+kernel_major: "{{ ansible_kernel.split('.')[0] }}"
+kernel_minor: "{{ ansible_kernel.split('.')[1] }}"
