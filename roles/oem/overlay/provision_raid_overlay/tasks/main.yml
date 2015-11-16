@@ -1,0 +1,18 @@
+---
+# We need to run apt-get update because /var/cache/apt/lists gets removed
+- name: Update apt cache
+  command: "apt-get update"
+
+- name: Install required packages
+  apt: name="{{ item.package }}={{ item.version }}"
+  with_items: raid_overlay_package_manifest
+
+# Install MegaRaid tools
+- name: Copy storcli tool
+  copy: src="{{ playbook_dir }}/files/{{ raid_overlay_storcli_package }}" dest=/opt/
+
+- name: Install storcli tools
+  command: dpkg -i /opt/{{ raid_overlay_storcli_package }}
+
+- name: Remove storcli tool
+  file: path=/opt/{{ raid_overlay_storcli_package }} state=absent
