@@ -44,6 +44,9 @@
   args:
     chdir: "{{ ansible_env.HOME }}/ipxe/src"
 
+- name: disable COMBOOT in general.h for EFI builds
+  command: sed -i '3 s/^/\/\//' {{ ansible_env.HOME }}/ipxe/src/config/local/general.h
+
 - name: build the general efi 64
   command: make bin-x86_64-efi/snponly.efi EMBED=default.ipxe
   args:
