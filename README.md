@@ -73,6 +73,8 @@ use the default one. For example, to build the default images:
 ```
 sudo ansible-playbook -i hosts all.yml
 ```
+- Note: OEM role provision_raid_overlay requires storcli_1.17.08_all.deb being copied into
+  common/files. User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip.
 
 ### Adding provisioner roles and configuration files
 

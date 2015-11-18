@@ -1,10 +1,4 @@
 ---
-- name: Unmount if existing overlayfs is mounted
-  mount: name={{ overlayfs_build_root }}
-         src=overlayfs
-         fstype=overlayfs
-         state=unmounted
-
 - name: Create build output directory
   file: path={{ build_artifact_path }} state=directory
 
