@@ -2,8 +2,17 @@
 - name: Unmount any existing squashfs images
   mount: name={{ overlayfs_lower_dir }}
          src={{ squashfs_image_path }}
-         fstype=squashfs 
+         fstype=squashfs
          state=unmounted
+
+- name: Unmount if directory is mounted
+  mount: name={{ overlayfs_build_root }}/{{ item }}
+         src=/{{ item }}
+         fstype=none
+         state=unmounted
+  with_items:
+    - proc
+    - dev
 
 - name: Unmount any existing overlayfs
   when: kernel_major | int == 3 and kernel_minor | int <= 16
