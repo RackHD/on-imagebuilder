@@ -16,7 +16,7 @@ Requirements
 ---------------
 
 - Any Debian/Ubuntu based system (support for other distributions coming soon, theoretically though, just install debootstrap and it should work)
-- ansible is installed (`apt-get install ansible`)
+- ansible version 1.5.4 is installed (`apt-get install ansible=1.5.4+dfsg-1`)
 - Internet access OR network access to an apt cache/proxy server from the build machine
 
 <br>
