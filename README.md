@@ -1,5 +1,7 @@
-on-imagebuilder
+on-imagebuilder [![Build Status](https://travis-ci.org/RackHD/on-imagebuilder.svg?branch=master)](https://travis-ci.org/RackHD/on-imagebuilder)
 ===============
+
+Copyright 2015, EMC, Inc.
 
 This repository contains a set of ansible playbooks and roles used for building
 debian-based linux microkernel images and overlay filesystems, primarily for use
