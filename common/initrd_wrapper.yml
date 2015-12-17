@@ -12,7 +12,7 @@
   vars_files:
     - ../{{ config_file }}
   roles:
-    - ../{{ provisioner }}
+    - ../roles/initrd/provision_initrd
     - ../roles/initrd/build_initrd
 
 - hosts: build_local
