@@ -16,7 +16,7 @@ Requirements
 ---------------
 
 - Any Debian/Ubuntu based system (support for other distributions coming soon, theoretically though, just install debootstrap and it should work)
-- ansible version 1.5.4 is installed (`apt-get install ansible=1.5.4+dfsg-1`)
+- Ansible is installed (`apt-get install ansible` or `pip install ansible`)
 - Internet access OR network access to an apt cache/proxy server from the build machine
 
 <br>
@@ -75,6 +75,10 @@ use the default one. For example, to build the default images:
 ```
 sudo ansible-playbook -i hosts all.yml
 ```
+
+**All ansible runs must be done on the host machine that is building the images.** This is because we use
+the ansible_chroot connection type, which is not supported over ssh connections.
+
 - Note: OEM role provision_raid_overlay requires storcli_1.17.08_all.deb being copied into
   common/files. User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip.
 
@@ -82,13 +86,13 @@ sudo ansible-playbook -i hosts all.yml
 
 The provisioner role is what specifies how the filesystem of an initrd, base
 image or overlay should be customized. To add a new provisioner, do the following.
-If you are familiar with Ansible, some of these steps will be obvious:
+If you have experience with Ansible, some of these steps will be familiar:
 
 - Make a new directory in `roles/<initrd|basefs|overlay>/tasks`, depending on the image type
 - Create and edit a main.yml file in the above directory to do the tasks you
   want (see [ansible modules](http://docs.ansible.com/ansible/modules_intro.html)
   if new to Ansible)
-- Add a new config_file into the vars directory. This will be included in the
+- Add a new config yaml file into the vars directory. This will be included in the
   Ansible run as a set of top-level variables (via vars_files) to be included/used
   by tasks in the role.
   *The config_file must have as a bare minimum a provisioner variable that points to the role, e.g.*
@@ -97,12 +101,13 @@ If you are familiar with Ansible, some of these steps will be obvious:
     provisioner: roles/overlay/provision_discovery_overlay
     ```
 - Configure a new playbook (see example.yml) to run the appropriate wrapper
-  playbook with the config_file, for example:
+  playbook with the config file and the provisioner role specified as vars, for example:
 
     ```
     - include: common/overlay_wrapper.yml
       vars:
         - config_file: vars/my_overlay.yml
+        - provisioner: <path to role directory, e.g. roles/overlay/provision_discovery_overlay>
     ```
   The wrapper playbooks handle all the setup and cleanup required to run a
   provisioner, such as filesystem mounting and creation, and build file creation.
