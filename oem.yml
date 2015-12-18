@@ -2,7 +2,9 @@
 - include: common/overlay_wrapper.yml
   vars:
     - config_file: vars/oem/intel.yml
+    - provisioner: roles/oem/overlay/provision_intel_flashing_overlay
 
 - include: common/overlay_wrapper.yml
   vars:
     - config_file: vars/oem/quanta.yml
+    - provisioner: roles/oem/overlay/provision_quanta_flashing_overlay

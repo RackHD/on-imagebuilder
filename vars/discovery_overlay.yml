@@ -1,4 +1,4 @@
-provisioner: roles/overlay/provision_discovery_overlay
+# provisioner: roles/overlay/provision_discovery_overlay
 
 overlayfs_archive_name: "discovery.overlay.cpio"
 

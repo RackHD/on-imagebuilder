@@ -1,4 +1,4 @@
-provisioner: roles/oem/overlay/provision_raid_overlay
+# provisioner: roles/oem/overlay/provision_raid_overlay
 
 overlayfs_archive_name: "raid.overlay.cpio"
 

@@ -1,4 +1,4 @@
-provisioner: roles/basefs/provision_rootfs
+# provisioner: roles/basefs/provision_rootfs
 
 build_root: '{{ basefs_build_root }}'
 build_root_size: 1000m

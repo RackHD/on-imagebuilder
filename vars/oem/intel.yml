@@ -1,4 +1,4 @@
-provisioner: roles/oem/overlay/provision_intel_flashing_overlay
+# provisioner: roles/oem/overlay/provision_intel_flashing_overlay
 
 overlayfs_archive_name: "flash_intel.overlay.cpio"
 
