@@ -2,14 +2,17 @@
 - include: common/initrd_wrapper.yml
   vars:
     - config_file: vars/initrd.yml
+    - provisioner: roles/initrd/provision_initrd
 
 - include: common/basefs_wrapper.yml
   vars:
     - config_file: vars/basefs.yml
+    - provisioner: roles/basefs/provision_rootfs
 
 - include: common/overlay_wrapper.yml
   vars:
     - config_file: vars/discovery_overlay.yml
+    - provisioner: roles/overlay/provision_discovery_overlay
 
 - include: common/ipxe_builder.yml
   vars:
