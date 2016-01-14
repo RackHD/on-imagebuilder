@@ -62,13 +62,6 @@
          dest={{ ipxe_build_artifact_path }}/monorail.ipxe fail_on_missing=yes
          flat=yes
 
-- name: fetch the resulting files
-  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/{{ item }} 
-         dest={{ ipxe_build_artifact_path }}/{{ item }} fail_on_missing=yes
-         flat=yes
-  with_items:
-    - undionly.kpxe
-
 - name: fetch the resulting files efi 64 bit file
   fetch: src={{ ansible_env.HOME }}/ipxe/src/bin-x86_64-efi/{{ item }}
         dest={{ ipxe_build_artifact_path }}/monorail-efi64-snponly.efi fail_on_missing=yes

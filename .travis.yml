@@ -13,6 +13,7 @@ script:
 before_deploy:
 - sudo chmod 644 /tmp/on-imagebuilder/builds/*
 - sudo chmod 644 /tmp/on-imagebuilder/ipxe/*
+- sudo chmod 644 /tmp/on-imagebuilder/syslinux/*
 deploy: 
   provider: bintray
   file: .bintray.json
