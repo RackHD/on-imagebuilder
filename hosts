@@ -20,6 +20,7 @@ overlayfs_work_dir=/tmp/on-imagebuilder/overlay/work
 overlayfs_build_root=/tmp/on-imagebuilder/overlay/root
 build_artifact_path=/tmp/on-imagebuilder/builds
 ipxe_build_artifact_path=/tmp/on-imagebuilder/ipxe
+syslinux_build_artifact_path=/tmp/on-imagebuilder/syslinux
 
 
 [on_imagebuild:children]

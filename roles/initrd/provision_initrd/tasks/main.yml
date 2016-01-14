@@ -5,6 +5,9 @@
 - name: Install initrd kernel dependencies
   apt: name=linux-image-{{ initrd_kernel_version }}
 
+- name: Install linux image extras for physical machine support
+  apt: name=linux-image-extra-{{ initrd_kernel_version }}
+
 - name: Install required packages
   apt: name="{{ item.package }}={{ item.version }}"
   with_items: initrd_package_manifest
