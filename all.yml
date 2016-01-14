@@ -17,3 +17,7 @@
 - include: common/ipxe_builder.yml
   vars:
     - config_file: vars/ipxe.yml
+
+- include: common/syslinux_builder.yml
+  vars:
+    - config_file: vars/syslinux.yml
