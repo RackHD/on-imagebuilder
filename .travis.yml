@@ -2,9 +2,6 @@ language: bash
 sudo: required
 dist: trusty
 before_script:
-# Rollback to 3.13 until initrd boot issue has been resolved
-- sed -i 's/3.16.0-25-generic/3.13.0-32-generic/g' group_vars/on_imagebuild
-- sed -i '24,25 s/^/#/' vars/basefs.yml
 - sudo apt-get update -q
 - sudo pip install ansible==1.9.4
 - sudo modprobe overlayfs
