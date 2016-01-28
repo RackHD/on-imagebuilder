@@ -1,0 +1,6 @@
+---
+- host: initrd_build_env_chroot
+  # Do this in its own file so we can get access to the provisioner variable since
+  # this playbook is included by the initrd_wrapper playbook
+  roles:
+    - ../{{ provisioner }}
