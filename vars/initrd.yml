@@ -1,4 +1,4 @@
-# provisioner: roles/initrd/provision_initrd
+provisioner: roles/initrd/provision_initrd
 
 initrd_kernel_version: '{{ ubuntu_kernel_version }}'
 
