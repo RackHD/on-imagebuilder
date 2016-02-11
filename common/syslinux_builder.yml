@@ -1,0 +1,6 @@
+---
+- hosts: build_local
+  vars_files:
+    - ../{{ config_file }}
+  roles:
+    - ../roles/syslinux
