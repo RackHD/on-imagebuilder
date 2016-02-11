@@ -37,12 +37,12 @@
         force=yes accept_hostkey=yes
         version={{ gittag }}
 
-- name: apply syslinux patch
-  patch: >
-        src=0001-Fix-compiling-failure-on-Ubuntu-14.04.patch
-        basedir="{{ ansible_env.HOME }}/syslinux"
-        strip=1
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version | int >= 14
+#- name: apply syslinux patch
+#  patch: >
+#        src=0001-Fix-compiling-failure-on-Ubuntu-14.04.patch
+#        basedir="{{ ansible_env.HOME }}/syslinux"
+#        strip=1
+#  when: ansible_distribution == "Ubuntu" and ansible_distribution_version | int >= 14
 
 - name: clean the build
   command: make clean
