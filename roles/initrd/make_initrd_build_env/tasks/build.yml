@@ -1,10 +1,10 @@
 ---
 - name: Create debian rootfs environment
-  command: debootstrap 
+  command: debootstrap
            --arch={{ debootstrap_arch }}
-           --variant=minbase 
-           --include={{ ansible_dependencies }} 
-           --exclude={{ initrd_build_env_exclude_packages }} 
+           --variant=minbase
+           --include={{ ansible_dependencies }}
+           --exclude={{ initrd_build_env_exclude_packages }}
            {{ debootstrap_release }}
            {{ build_root }}
            {{ debootstrap_apt_server }}
@@ -25,7 +25,7 @@
   with_items: repository_lists
 
 - name: Bind mount to chroot environment
-  mount: name={{ build_root }}/{{ item }} 
+  mount: name={{ build_root }}/{{ item }}
          src=/{{ item }}
          fstype=none
          opts="bind"

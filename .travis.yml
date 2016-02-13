@@ -3,15 +3,15 @@ sudo: required
 dist: trusty
 before_script:
 - sudo apt-get update -q
-- sudo pip install ansible==1.9.4
+- sudo pip install ansible
 - sudo modprobe overlayfs
 script:
-- sudo ansible-playbook -i hosts all.yml
+- sudo ./build_all.sh
 before_deploy:
 - sudo chmod 644 /tmp/on-imagebuilder/builds/*
 - sudo chmod 644 /tmp/on-imagebuilder/ipxe/*
 - sudo chmod 644 /tmp/on-imagebuilder/syslinux/*
-deploy: 
+deploy:
   provider: bintray
   file: .bintray.json
   user: $BINTRAY_USER
