@@ -31,6 +31,10 @@
   apt: name=mingw-w64 state=present
   sudo: yes
 
+- name: install e2fslibs-dev
+  apt: name=e2fslibs-dev state=present
+  sudo: yes
+
 - name: check out syslinux source repository
   git:  repo=https://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
         dest="{{ ansible_env.HOME }}/syslinux"
