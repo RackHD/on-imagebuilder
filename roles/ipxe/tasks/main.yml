@@ -7,8 +7,11 @@
   apt: name=liblzma-dev state=present
   sudo: yes
 
-- name: install syslinx and genisoimage
+- name: install syslinx
   apt: name=syslinux state=present
+  sudo: yes
+
+- name: install genisoimage
   apt: name=genisoimage state=present
   sudo: yes
 
@@ -58,7 +61,7 @@
     chdir: "{{ ansible_env.HOME }}/ipxe/src"
 
 - name: fetching monorail.ipxe file
-  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/ipxe.pxe 
+  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/ipxe.pxe
          dest={{ ipxe_build_artifact_path }}/monorail.ipxe fail_on_missing=yes
          flat=yes
 

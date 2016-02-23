@@ -25,6 +25,6 @@
 
 - name: Enable extra modules
   shell: "echo {{ item }} >> /etc/initramfs-tools/modules"
-  with_items: 
+  with_items:
     - squashfs
     - overlayfs

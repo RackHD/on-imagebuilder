@@ -3,7 +3,7 @@ on-imagebuilder [![Build Status](https://travis-ci.org/RackHD/on-imagebuilder.sv
 
 Copyright 2015, EMC, Inc.
 
-This repository contains a set of ansible playbooks and roles used for building
+This repository contains a set of scripts that execute ansible playbooks and roles used for building
 debian-based linux microkernel images and overlay filesystems, primarily for use
 with the [on-taskgraph workflow engine](https://github.com/rackhd/on-taskgraph).
 There are three ansible playbooks included, which build mountable
@@ -16,7 +16,7 @@ Requirements
 ---------------
 
 - Any Debian/Ubuntu based system (support for other distributions coming soon, theoretically though, just install debootstrap and it should work)
-- Ansible is installed (`apt-get install ansible` or `pip install ansible`)
+- Ansible (> 2.0) is installed (`apt-get install ansible` or `pip install ansible`)
 - Internet access OR network access to an apt cache/proxy server from the build machine
 
 <br>
@@ -69,14 +69,14 @@ Getting started
 
 ### Building images
 
-To build images, define an imagebuilding playbook (see example.yml for an example) or
+To build images, define an imagebuilding script (see example.sh for an example) or
 use the default one. For example, to build the default images:
 
 ```
-sudo ansible-playbook -i hosts all.yml
+$ sudo ./on-imagebuilder/build_all.sh
 ```
 
-**All ansible runs must be done on the host machine that is building the images.** This is because we use
+**All builds runs must be done on the host machine that is building the images.** This is because we use
 the ansible_chroot connection type, which is not supported over ssh connections.
 
 - Note: OEM role provision_raid_overlay requires storcli_1.17.08_all.deb being copied into
@@ -93,21 +93,16 @@ If you have experience with Ansible, some of these steps will be familiar:
   want (see [ansible modules](http://docs.ansible.com/ansible/modules_intro.html)
   if new to Ansible)
 - Add a new config yaml file into the vars directory. This will be included in the
-  Ansible run as a set of top-level variables (via vars_files) to be included/used
+  Ansible run as a set of top-level variables (via the -e argument) to be included/used
   by tasks in the role.
-  *The config_file must have as a bare minimum a provisioner variable that points to the role, e.g.*
-
-    ```
-    provisioner: roles/overlay/provision_discovery_overlay
-    ```
-- Configure a new playbook (see example.yml) to run the appropriate wrapper
+- Configure a new script (see example.sh) to run the appropriate wrapper
   playbook with the config file and the provisioner role specified as vars, for example:
 
     ```
-    - include: common/overlay_wrapper.yml
-      vars:
-        - config_file: vars/my_overlay.yml
-        - provisioner: <path to role directory, e.g. roles/overlay/provision_discovery_overlay>
+    sudo ansible-playbook \
+    -i hosts common/overlay_wrapper.yml \
+    -e "config_file=vars/overlay.yml \
+    provisioner=roles/overlay/provision_discovery_overlay"
     ```
   The wrapper playbooks handle all the setup and cleanup required to run a
   provisioner, such as filesystem mounting and creation, and build file creation.
