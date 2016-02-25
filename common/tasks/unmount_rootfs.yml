@@ -1,6 +1,6 @@
 ---
 - name: Unmount bind mounts in build directory
-  mount: name={{ build_root }}/{{ item }} 
+  mount: name={{ build_root }}/{{ item }}
          src=none
          fstype=none
          state=unmounted

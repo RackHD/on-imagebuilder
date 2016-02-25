@@ -25,11 +25,7 @@
   with_items: repository_lists
 
 - name: Bind mount to chroot environment
-  mount: name={{ build_root }}/{{ item }}
-         src=/{{ item }}
-         fstype=none
-         opts="bind"
-         state=mounted
+  shell: mount -o bind /{{ item }} {{ build_root }}/{{ item }}
   with_items:
     - proc
     - dev

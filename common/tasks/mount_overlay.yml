@@ -1,10 +1,9 @@
 ---
+- name: Make read-only squashfs image directory
+  file: name={{ overlayfs_lower_dir }} state=directory
+
 - name: Mount read-only squashfs image
-  mount: name={{ overlayfs_lower_dir }}
-         src={{ squashfs_image_path }}
-         fstype=squashfs
-         state=mounted
-         opts="loop"
+  shell: mount -t squashfs -o loop {{ squashfs_image_path }} {{ overlayfs_lower_dir }}
 
 - name: Create overlay directories
   file: name={{ item }} state=directory
@@ -16,26 +15,14 @@
 
 - name: Mount overlayfs
   when: kernel_major | int == 3 and kernel_minor | int <= 16
-  mount: name={{ overlayfs_build_root }}
-         src=overlayfs
-         fstype=overlayfs
-         opts="rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }}"
-         state=mounted
+  shell: mount -t overlayfs -o rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }} overlayfs {{ overlayfs_build_root }}
 
 - name: Mount overlay
   when: kernel_major | int == 3 and kernel_minor | int >= 18
-  mount: name={{ overlayfs_build_root }}
-         src=overlay
-         fstype=overlay
-         opts="rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }},workdir={{ overlayfs_work_dir }}"
-         state=mounted
+  shell: mount -t overlay -o rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }},workdir={{ overlayfs_work_dir }} overlay {{ overlayfs_build_root }}
 
 - name: Bind mount to chroot environment
-  mount: name={{ overlayfs_build_root }}/{{ item }}
-         src=/{{ item }}
-         fstype=none
-         opts="bind"
-         state=mounted
+  shell: mount -o bind /{{ item }} {{ overlayfs_build_root }}/{{ item }}
   with_items:
     - proc
     - dev
