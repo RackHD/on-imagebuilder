@@ -72,7 +72,7 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get -y install python-pip
-    sudo pip install ansible==1.9.4
+    sudo pip install "ansible~=2.0.0"
     cd /vagrant
     sudo ansible-playbook -i hosts all.yml
     # sudo apt-get update
