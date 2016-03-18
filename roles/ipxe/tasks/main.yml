@@ -107,6 +107,11 @@
   args:
     chdir: "{{ ipxe_build_env_path }}/ipxe/src"
 
+- name: fetching monorail-undionly.kpxe file
+  fetch: src={{ ansible_env.HOME }}/ipxe/src/bin/undionly.kpxe
+         dest={{ ipxe_build_artifact_path }}/monorail-undionly.kpxe fail_on_missing=yes
+         flat=yes
+
 - name: fetch the resulting files efi 64 bit file
   fetch: src={{ ipxe_build_env_path }}/ipxe/src/bin-x86_64-efi/{{ item }}
         dest={{ ipxe_build_artifact_path }}/monorail-efi64-snponly.efi fail_on_missing=yes
