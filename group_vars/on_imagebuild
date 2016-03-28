@@ -1,4 +1,4 @@
-# Change this if you have an apt-cacher, apt-cacher-ng or apt-proxy 
+# Change this if you have an apt-cacher, apt-cacher-ng or apt-proxy
 # server running to speed up build times significantly
 # e.g. apt_server: 192.168.100.5:3142
 apt_server: archive.ubuntu.com
@@ -7,7 +7,7 @@ debootstrap_arch: amd64
 debootstrap_release: trusty
 debootstrap_apt_server: http://{{ apt_server }}/ubuntu
 
-ubuntu_kernel_version: 3.16.0-25-generic
+ubuntu_kernel_version: 3.19.0-56-generic
 
 # Do not change ansible_dependencies!
 ansible_dependencies: "python,python-apt"
