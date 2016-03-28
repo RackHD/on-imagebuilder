@@ -1,6 +1,6 @@
 #provisioner: roles/overlay/provision_discovery_overlay
 
-overlayfs_archive_name: "discovery.overlay.cpio"
+overlayfs_archive_name: "discovery.3.19.0-56-generic.overlay.cpio"
 
 discovery_overlay_package_manifest:
   - { package: "dmidecode",  version: "2.12-2" }
