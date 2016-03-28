@@ -71,11 +71,12 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-get -y install python-pip
-    sudo pip install "ansible~=2.0.0"
+    sudo apt-get -y install python-software-properties
+    sudo apt-add-repository ppa:ansible/ansible
+    sudo apt-get -y update
+    sudo apt-get -y install ansible
+
     cd /vagrant
-    sudo ansible-playbook -i hosts all.yml
-    # sudo apt-get update
-    # sudo apt-get install -y apache2
+    sudo sh ./build_all.sh
   SHELL
 end
