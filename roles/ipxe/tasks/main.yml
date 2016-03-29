@@ -37,6 +37,10 @@
   copy: src=general.h dest="{{ ipxe_build_env_path }}/ipxe/src/config/local/general.h"
   sudo: no
 
+- name: copy in dhcp.h configuration file for build
+  copy: src=dhcp.h dest="{{ ipxe_build_env_path }}/ipxe/src/config/local/dhcp.h"
+  sudo: no
+
 - name: copy in the default.ipxe script
   copy: src=default.ipxe dest="{{ ipxe_build_env_path }}/ipxe/src/default.ipxe"
   sudo: no
