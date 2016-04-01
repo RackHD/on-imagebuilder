@@ -13,6 +13,5 @@ raid_overlay_package_manifest:
   - { package: "lldpd", version: "0.7.7-1"}
   - { package: "initramfs-tools", version: "0.103ubuntu4.3"}
   - { package: "apt-utils",       version: "1.0.1ubuntu2.11"}
-  - { package: "parted",          version: "2.3-19ubuntu1.14.04.1"}
 
 raid_overlay_perccli_package: "perccli_1.11.03-2_all.deb"
