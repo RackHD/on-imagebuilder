@@ -8,11 +8,11 @@
   with_items: raid_overlay_package_manifest
 
 # Install perccli tools
-- name: Copy perccli tool
+- name: Copy perccli package
   copy: src="{{ playbook_dir }}/files/{{ raid_overlay_perccli_package }}" dest=/opt/
 
 - name: Install perccli tools
   command: dpkg -i /opt/{{ raid_overlay_perccli_package }}
 
-- name: Remove perccli tool
+- name: Remove perccli package
   file: path=/opt/{{ raid_overlay_perccli_package }} state=absent
