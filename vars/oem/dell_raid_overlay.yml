@@ -1,6 +1,6 @@
 # provisioner: roles/oem/overlay/provision_raid_overlay
 
-overlayfs_archive_name: "raid.overlay.cpio"
+overlayfs_archive_name: "dell.raid.overlay.cpio"
 
 raid_overlay_package_manifest:
   - { package: "dmidecode",  version: "2.12-2" }
@@ -11,7 +11,7 @@ raid_overlay_package_manifest:
   - { package: "smartmontools",  version: "6.2+svn3841-1.2" }
   - { package: "ohai",  version: "6.14.0-2" }
   - { package: "lldpd", version: "0.7.7-1"}
-  - { package: "initramfs-tools", version: "0.103ubuntu4.2"}
-  - { package: "apt-utils",       version: "1.0.1ubuntu2.10"}
+  - { package: "initramfs-tools", version: "0.103ubuntu4.3"}
+  - { package: "apt-utils",       version: "1.0.1ubuntu2.11"}
 
-raid_overlay_storcli_package: "storcli_1.17.08_all.deb"
+raid_overlay_perccli_package: "perccli_1.11.03-2_all.deb"
