@@ -100,39 +100,40 @@ mountroot()
     # Is this necessary?
     modprobe tmpfs
     modprobe squashfs
-    modprobe overlayfs
-    mkdir upper lower work # upper=overlay, lower=base squashfs, work=empty for new command syntax, mount on ${rootmnt}
-    mount -t tmpfs tmpfs upper work # put overlay files into a tmpfs so they don't get blown away on switch_root
-	CB=$(cat /proc/cmdline)
-	CB="${CB##*API_CB=}"
-	CB="${CB%% *}"
-	BASEFS=$(cat /proc/cmdline)
-	BASEFS="${BASEFS##*BASEFS=}"
-	BASEFS="${BASEFS%% *}"
-	OVERLAYFS=$(cat /proc/cmdline)
-	OVERLAYFS="${OVERLAYFS##*OVERLAYFS=}"
-	OVERLAYFS="${OVERLAYFS%% *}"
-	echo "downloading squashfs from http://${CB}/${BASEFS}"
-	logger "downloading squashfs from http://${CB}/${BASEFS}"
-	curl http://${CB}/${BASEFS} -o base.squashfs.img
+    modprobe overlay
+    mkdir outer
+    mount -t tmpfs tmpfs outer # put overlay files into a tmpfs so they don't get blown away on switch_root
+    mkdir lower outer/upper outer/work # upper=overlay, lower=base squashfs, work=empty for new command syntax, mount on ${rootmnt}
+    CB=$(cat /proc/cmdline)
+    CB="${CB##*API_CB=}"
+    CB="${CB%% *}"
+    BASEFS=$(cat /proc/cmdline)
+    BASEFS="${BASEFS##*BASEFS=}"
+    BASEFS="${BASEFS%% *}"
+    OVERLAYFS=$(cat /proc/cmdline)
+    OVERLAYFS="${OVERLAYFS##*OVERLAYFS=}"
+    OVERLAYFS="${OVERLAYFS%% *}"
+    echo "downloading squashfs from http://${CB}/${BASEFS}"
+    logger "downloading squashfs from http://${CB}/${BASEFS}"
+    curl http://${CB}/${BASEFS} -o base.squashfs.img
     echo "downloading overlay from http://${CB}/${OVERLAYFS}"
     logger "downloading overlay from http://${CB}/${OVERLAYFS}"
-    cd upper
+    cd outer/upper
     curl http://${CB}/${OVERLAYFS} | gzip -d -c | cpio -i
-    cd ..
+    cd ../..
     echo "Mounting base squashfs"
     logger "Mounting base squashfs"
 	mount -n -t squashfs -o loop base.squashfs.img lower
-    echo "Mounting overlayfs onto ${rootmnt}"
-    logger "Mounting overlayfs onto ${rootmnt}"
-    mount -t overlay overlayfs -o rw,upperdir=upper,lowerdir=lower,workdir=work ${rootmnt}
+    echo "Mounting overlay onto ${rootmnt}"
+    logger "Mounting overlay onto ${rootmnt}"
+    mount -t overlay overlay -o rw,upperdir=outer/upper,lowerdir=lower,workdir=outer/work ${rootmnt}
 
-	mountroot_status="$?"
-	echo "overlayfs mount complete"
-
-	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-bottom"
-	logger "Running /scripts/local-bottom"
-	run_scripts /scripts/local-bottom
-	[ "$quiet" != "y" ] && log_end_msg
-	logger "done"
+    mountroot_status="$?"
+    echo "overlay mount complete"
+    
+    [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-bottom"
+    logger "Running /scripts/local-bottom"
+    run_scripts /scripts/local-bottom
+    [ "$quiet" != "y" ] && log_end_msg
+    logger "done"
 }
