@@ -101,8 +101,8 @@ mountroot()
     modprobe tmpfs
     modprobe squashfs
     modprobe overlayfs
-    mkdir upper lower work # upper=overlay, lower=base squashfs, work=empty for new command syntax, mount on ${rootmnt}
-    mount -t tmpfs tmpfs upper work # put overlay files into a tmpfs so they don't get blown away on switch_root
+    mkdir upper lower  # upper=overlay, lower=base squashfs, mount on ${rootmnt}
+    mount -t tmpfs tmpfs upper  # put overlay files into a tmpfs so they don't get blown away on switch_root
 	CB=$(cat /proc/cmdline)
 	CB="${CB##*API_CB=}"
 	CB="${CB%% *}"
@@ -125,7 +125,7 @@ mountroot()
 	mount -n -t squashfs -o loop base.squashfs.img lower
     echo "Mounting overlayfs onto ${rootmnt}"
     logger "Mounting overlayfs onto ${rootmnt}"
-    mount -t overlay overlayfs -o rw,upperdir=upper,lowerdir=lower,workdir=work ${rootmnt}
+    mount -t overlayfs overlayfs ${rootmnt} -o rw,upperdir=upper,lowerdir=lower
 
 	mountroot_status="$?"
 	echo "overlayfs mount complete"
