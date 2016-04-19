@@ -16,7 +16,14 @@ Requirements
 ---------------
 
 - Any Debian/Ubuntu based system (support for other distributions coming soon, theoretically though, just install debootstrap and it should work)
-- Ansible (> 2.0) is installed (`apt-get install ansible` or `pip install ansible`)
+- Ansible (> 2.0) is installed. To install newest Ansible version ([Ansible Installation Documents](http://docs.ansible.com/ansible/intro_installation.html)):
+
+    ```
+    sudo apt-get -y install python-software-properties
+    sudo apt-add-repository ppa:ansible/ansible
+    sudo apt-get -y update
+    sudo apt-get -y install ansible
+    ```
 - Internet access OR network access to an apt cache/proxy server from the build machine
 
 <br>
