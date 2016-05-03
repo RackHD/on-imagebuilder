@@ -80,7 +80,8 @@ To build images, define an imagebuilding script (see example.sh for an example) 
 use the default one. For example, to build the default images:
 
 ```
-$ sudo ./on-imagebuilder/build_all.sh
+$ cd on-imagebuilder/
+$ sudo ./build_all.sh
 ```
 
 **All builds runs must be done on the host machine that is building the images.** This is because we use
