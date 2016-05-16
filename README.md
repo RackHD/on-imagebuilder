@@ -87,11 +87,21 @@ $ sudo ./build_all.sh
 **All builds runs must be done on the host machine that is building the images.** This is because we use
 the ansible_chroot connection type, which is not supported over ssh connections.
 
-the build artifacts will locate in folder ***/tmp/on-imagebuilder/builds/*** (which is defined as variable "build_artifact_path" in "hosts" file). The artifacts will be
-- base.*.squashfs.img  
-- discovery.overlay.cpio.gz  
-- initrd.img-*  
-- vmlinuz-*
+the build artifacts will locate in folders as below( (which are defined  in "hosts" file respectively ):
+- **/tmp/on-imagebuilder/builds/**     it includes the artifacts:
+  *  base.*.squashfs.img
+  * discovery.overlay.cpio.gz
+  * initrd.img-*
+  * vmlinuz-*
+
+- **/tmp/on-imagebuilder/ipxe/** . it includes the artifacts:
+  * monorail-efi32-snponly.efi
+  * monorail-efi64-snponly.efi  
+  * monorail.ipxe  
+  * monorail-undionly.kpxe
+
+- **syslinux**/undionly.kkpxe 
+
 
 - Note: OEM role provision_raid_overlay requires storcli_1.17.08_all.deb being copied into
   common/files. User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip.
