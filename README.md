@@ -87,14 +87,14 @@ $ sudo ./build_all.sh
 **All builds runs must be done on the host machine that is building the images.** This is because we use
 the ansible_chroot connection type, which is not supported over ssh connections.
 
-the build artifacts will locate in folders as below( (which are defined  in "hosts" file respectively ):
-- **/tmp/on-imagebuilder/builds/**     it includes the artifacts:
-  *  base.*.squashfs.img
+The build artifacts will be located in these directories below (which are defined in the `./hosts` file):
+- **/tmp/on-imagebuilder/builds/**    :  it includes the artifacts:
+  * base.*.squashfs.img
   * discovery.overlay.cpio.gz
   * initrd.img-*
   * vmlinuz-*
 
-- **/tmp/on-imagebuilder/ipxe/** . it includes the artifacts:
+- **/tmp/on-imagebuilder/ipxe/**      :  it includes the artifacts:
   * monorail-efi32-snponly.efi
   * monorail-efi64-snponly.efi  
   * monorail.ipxe  
