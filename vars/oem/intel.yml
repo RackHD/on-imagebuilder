@@ -7,4 +7,5 @@ intel_overlay_package_manifest:
  - { package: "lib32ncurses5", version: "5.9+20140118-1ubuntu1" }
  - { package: "lib32bz2-1.0", version: "1.0.6-5" }
  - { package: "lib32gcc1", version: "1:4.9.3-0ubuntu4" }
- - { package: "lib32stdc++6", version: "4.8.4-2ubuntu1~14.04.1" }
+ - { package: "lib32stdc++6", version: "4.8.4-2ubuntu1~14.04.3" }
+ - { package: "unzip", version: "6.0-9ubuntu1.5" }
