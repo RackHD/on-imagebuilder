@@ -22,7 +22,7 @@
          state=unmounted
 
 - name: Unmount any existing overlay
-  when: kernel_major | int == 3 and kernel_minor | int >= 18
+  when: kernel_major | int == 3 and kernel_minor | int >= 18 or kernel_major | int >= 4
   mount: name={{ overlayfs_build_root }}
          src=overlay
          fstype=overlay

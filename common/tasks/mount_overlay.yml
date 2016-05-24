@@ -18,7 +18,7 @@
   shell: mount -t overlayfs -o rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }} overlayfs {{ overlayfs_build_root }}
 
 - name: Mount overlay
-  when: kernel_major | int == 3 and kernel_minor | int >= 18
+  when: kernel_major | int == 3 and kernel_minor | int >= 18 or kernel_major | int >= 4
   shell: mount -t overlay -o rw,upperdir={{ overlayfs_upper_dir }},lowerdir={{ overlayfs_lower_dir }},workdir={{ overlayfs_work_dir }} overlay {{ overlayfs_build_root }}
 
 - name: Bind mount to chroot environment
