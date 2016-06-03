@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 before_script:
 - sudo apt-get update -q
-- sudo pip install ansible
+- sudo pip install ansible==2.0.2.0
 - sudo modprobe overlayfs
 script:
 - sudo ./build_all.sh
