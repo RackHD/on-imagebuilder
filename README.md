@@ -16,7 +16,7 @@ Requirements
 ---------------
 
 - Any Debian/Ubuntu based system (support for other distributions coming soon, theoretically though, just install debootstrap and it should work)
-- Ansible (> 2.0) is installed. To install newest Ansible version ([Ansible Installation Documents](http://docs.ansible.com/ansible/intro_installation.html)):
+- Ansible (> 2.0) (**NOTE**: Version 2.1.0.0 is not workable) is installed. To install newest Ansible version ([Ansible Installation Documents](http://docs.ansible.com/ansible/intro_installation.html)):
 
     ```
     sudo apt-get -y install python-software-properties
@@ -130,6 +130,17 @@ If you have experience with Ansible, some of these steps will be familiar:
     ```
   The wrapper playbooks handle all the setup and cleanup required to run a
   provisioner, such as filesystem mounting and creation, and build file creation.
+- **NOTE**: the customized overlay depends on initrd and basefs build result, that said, before running the overlay playbook, below playbook should run firstly:
+
+    ```
+    sudo ansible-playbook -i hosts common/initrd_wrapper.yml \
+    -e "config_file=vars/initrd.yml provisioner=roles/initrd/provision_initrd"
+
+    sudo ansible-playbook -i hosts common/basefs_wrapper.yml \
+    -e "config_file=vars/basefs.yml provisioner=roles/basefs/provision_rootfs"
+    ```
+
+  so it should run `build_all.sh` which include inirtd and basefs playbook before `build_oem.sh`
 
 ### Changing the global configuration
 
