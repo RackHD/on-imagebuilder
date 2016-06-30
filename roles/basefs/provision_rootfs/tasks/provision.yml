@@ -54,6 +54,14 @@
   apt: name="{{ item.package }}={{ item.version }}"
   with_items: basefs_package_manifest
 
+- name: Setup nodejs source for installing node v4
+  shell: curl -sL https://deb.nodesource.com/setup_4.x | bash
+
+- name: Install node v4
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - nodejs
+
 - name: Add monorail to sudoers file
   lineinfile: dest=/etc/sudoers.d/11-monorail-user 
               line="monorail ALL=(ALL) NOPASSWD:ALL" 

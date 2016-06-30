@@ -15,8 +15,7 @@ basefs_package_manifest:
   - { package: "curl",            version: "7.35.0-1ubuntu2.6" }
   - { package: "vim-tiny",        version: "2:7.4.052-1ubuntu3" }
   - { package: "less",            version: "458-2" }
-  - { package: "nodejs",          version: "0.10.25~dfsg2-2ubuntu1" }
-  - { package: "nodejs-legacy",   version: "0.10.25~dfsg2-2ubuntu1" }
+  - { package: "ca-certificates", version: "20160104ubuntu0.14.04.1"}
   - { package: "sudo",            version: "1.8.9p5-1ubuntu1" }
 
 basefs_extra_drivers_path: /opt/drivers
