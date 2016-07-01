@@ -62,6 +62,19 @@
   with_items:
     - nodejs
 
+- name: Remove extra packages in setup_4.x while installing node v4
+  apt: pkg={{ item }} state=absent
+  with_items:
+    - lsb-release
+    - dh-python
+    - libpython3-stdlib
+    - libpython3.4-minimal
+    - libpython3.4-stdlib
+    - python3
+    - python3-minimal
+    - python3.4
+    - python3.4-minimal
+
 - name: Add monorail to sudoers file
   lineinfile: dest=/etc/sudoers.d/11-monorail-user 
               line="monorail ALL=(ALL) NOPASSWD:ALL" 
