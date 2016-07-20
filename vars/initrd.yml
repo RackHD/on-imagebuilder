@@ -9,7 +9,7 @@ initrd_build_env_exclude_packages: "grub-common,grub-gfxpayload-lists,grub-pc,\
                                     grub-pc-bin,grub2-common"
 
 initrd_package_manifest:
-  - { package: "curl", version: "7.35.0-1ubuntu2.6" }
+  - { package: "curl", version: "7.35.0-1ubuntu2.7" }
   - { package: "linux-firmware", version: "1.127.22"}
 
 initrd_include_binaries:
