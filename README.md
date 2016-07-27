@@ -19,10 +19,9 @@ Requirements
 - Ansible (> 2.0) (**NOTE**: Version 2.1.0.0 is not workable) is installed. To install newest Ansible version ([Ansible Installation Documents](http://docs.ansible.com/ansible/intro_installation.html)):
 
     ```
-    sudo apt-get -y install python-software-properties
-    sudo apt-add-repository ppa:ansible/ansible
+    sudo apt-get -y install python-software-properties python-pip
     sudo apt-get -y update
-    sudo apt-get -y install ansible
+    sudo pip install ansible==2.0.2.0
     ```
 - Internet access OR network access to an apt cache/proxy server from the build machine
 
