@@ -73,6 +73,19 @@
   with_items:
     - undionly.kpxe
 
+# Build the Intel specific/only version of iPXE
+- name: build the intel specific iPXE
+  command: make bin/intel.pxe EMBED=default.ipxe
+  args:
+    chdir: "{{ ipxe_build_env_path }}/ipxe/src"
+
+- name: fetching monorail.intel.ipxe file
+  fetch: src={{ ipxe_build_env_path }}/ipxe/src/bin/{{ item }}
+         dest={{ ipxe_build_artifact_path }}/monorail.intel.ipxe fail_on_missing=yes
+         flat=yes
+  with_items:
+    - intel.pxe
+
 # Now for a version of the same to help debug communication issues.
 - name: build the general code with communications level debug
   command: make DEBUG=dhcp:9,tftp,config:9,netdevice bin/ipxe.pxe EMBED=default.ipxe
