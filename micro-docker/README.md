@@ -1,0 +1,4 @@
+- cd micro-docker
+- sudo docker build -t rackhd/micro .
+- sudo docker save rackhd/micro | xz -z > discovery.docker.tar.xz
+- copy discovery.docker.tar.xz to on-http/static/http/common
