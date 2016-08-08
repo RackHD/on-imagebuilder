@@ -11,7 +11,7 @@ raid_overlay_package_manifest:
   - { package: "smartmontools",  version: "6.2+svn3841-1.2" }
   - { package: "ohai",  version: "6.14.0-2" }
   - { package: "lldpd", version: "0.7.7-1"}
-  - { package: "initramfs-tools", version: "0.103ubuntu4.2"}
-  - { package: "apt-utils",       version: "1.0.1ubuntu2.10"}
+  - { package: "initramfs-tools", version: "0.103ubuntu4.4"}
+  - { package: "apt-utils",       version: "1.0.1ubuntu2.14"}
 
 raid_overlay_storcli_package: "storcli_1.17.08_all.deb"
