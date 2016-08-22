@@ -10,7 +10,7 @@ basefs_exclude_packages: "initramfs-tools,initramfs-tools-bin,busybox-initramfs,
                          grub2-common,busybox-initramfs"
 
 basefs_package_manifest:
-  - { package: "openssh-server",  version: "1:6.6p1-2ubuntu2.7" }
+  - { package: "openssh-server",  version: "1:6.6p1-2ubuntu2.8" }
   - { package: "ipmitool",        version: "1.8.13-1" }
   - { package: "curl",            version: "7.35.0-1ubuntu2*" }
   - { package: "vim-tiny",        version: "2:7.4.052-1ubuntu3" }
