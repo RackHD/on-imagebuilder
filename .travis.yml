@@ -11,6 +11,7 @@ before_deploy:
 - sudo chmod 644 /tmp/on-imagebuilder/builds/*
 - sudo chmod 644 /tmp/on-imagebuilder/ipxe/*
 - sudo chmod 644 /tmp/on-imagebuilder/syslinux/*
+- ./gen_bintray_cfg.bash "${TRAVIS_BRANCH}"
 deploy:
   provider: bintray
   file: .bintray.json

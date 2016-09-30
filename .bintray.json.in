@@ -1,0 +1,30 @@
+{
+    "package": {
+        "name": "on-imagebuilder",
+        "repo": "binary", 
+        "subject": "rackhd",
+        "vcs_url": "https://github.com/RackHD/on-imagebuilder.git",
+        "licenses": ["Apache-2.0"]
+    },
+
+    "version": {
+        "name": "#REVISION#"
+    },
+
+    "files":
+        [
+            {
+	        "includePattern": "/tmp/on-imagebuilder/builds/(.*)", "uploadPattern": "#REVISION#/builds/$1", 
+                "matrixParams": { "override": 1 }
+            },
+            {
+                "includePattern": "/tmp/on-imagebuilder/ipxe/(.*)", "uploadPattern": "#REVISION#/ipxe/$1",
+                "matrixParams": { "override": 1 }
+            },
+            {
+                "includePattern": "/tmp/on-imagebuilder/syslinux/(.*)", "uploadPattern": "#REVISION#/syslinux/$1",
+                "matrixParams": { "override": 1 }
+            }
+        ],
+    "publish": true
+}
