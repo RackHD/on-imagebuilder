@@ -1,0 +1,2 @@
+common var/renasar/on-http/static/http
+pxe/* var/renasar/on-tftp/static/tftp

@@ -1,0 +1,13 @@
+Source: on-image-common
+Section: net
+Priority: optional
+Maintainer: Joe Heck <joseph.heck@emc.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+
+
+Package: on-image-common
+Architecture: all
+Depends: ${misc:Depends}
+Description: on-image-common
+ Common microkernel files for monorail workflow engine.

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# HWIMO-BUILD
+
+#
+# Build debian package for all images created by on-imagebuilder
+#
+set -e
+output_path=/tmp/on-imagebuilder
+
+#build static files
+sudo ./build_all.sh
+
+#prepare workplace for deb build
+rm -rf on-static-common*
+rm -rf packagebuild
+mkdir packagebuild
+cd packagebuild
+
+mkdir common
+mkdir pxe
+
+#copy static files
+sudo chmod 644 /tmp/on-imagebuilder/builds/*
+sudo chmod 644 /tmp/on-imagebuilder/ipxe/*
+sudo chmod 644 /tmp/on-imagebuilder/syslinux/*
+sudo cp $output_path/builds/* common/
+sudo cp $output_path/syslinux/* pxe/
+sudo cp $output_path/ipxe/* pxe/
+rsync -av ../debian .
+#generate package version
+GITCOMMITDATE=$(git show -s --pretty="format:%ci")
+DATESTRING=$(date -d "$GITCOMMITDATE" -u +"%Y-%m-%d-%H%M%SZ")
+
+PKG_VERSION="$DATESTRING"
+if [ -n "$BUILD_NUMBER" ]
+then
+  PKG_VERSION="${PKG_VERSION}-${BUILD_NUMBER}"
+fi
+
+export DEBEMAIL="hwimo robots <hwimo@hwimo.lab.emc.com>"
+export DEBFULLNAME="The HWIMO Robots"
+
+# build files in packagebuild into a debian package 
+dch -v ${PKG_VERSION} autobuild
+debuild --no-lintian --no-tgz-check -us -uc
