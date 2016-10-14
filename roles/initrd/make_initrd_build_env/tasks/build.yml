@@ -9,11 +9,11 @@
            {{ build_root }}
            {{ debootstrap_apt_server }}
 
-- name: Configure apt
+- name: Configure dpkg
   copy: src="{{ playbook_dir }}/files/01_nodoc"
         dest={{ build_root }}/etc/dpkg/dpkg.cfg.d/01_nodoc
 
-- name: Configure dpkg
+- name: Configure apt
   copy: src="{{ playbook_dir }}/files/apt.conf"
         dest={{ build_root }}/etc/apt/apt.conf
 

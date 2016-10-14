@@ -36,7 +36,7 @@
   sudo: yes
 
 - name: check out syslinux source repository
-  git:  repo=https://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
+  git:  repo=http://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
         dest="{{ syslinux_build_env_path }}/syslinux"
         force=yes accept_hostkey=yes
         version={{ gittag }}

@@ -14,10 +14,10 @@
 - name: Add monorail-micro host to /etc/hostname
   lineinfile: dest=/etc/hostname line="monorail-micro" create=yes state=present
 
-- name: Configure apt
+- name: Configure dpkg
   copy: src="{{ playbook_dir }}/files/01_nodoc" dest=/etc/dpkg/dpkg.cfg.d/01_nodoc
 
-- name: Configure dpkg
+- name: Configure apt
   copy: src="{{ playbook_dir }}/files/apt.conf" dest=/etc/apt/apt.conf
 
 - name: Add commonly used directories

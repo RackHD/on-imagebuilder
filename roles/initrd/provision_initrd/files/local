@@ -103,22 +103,19 @@ mountroot()
     modprobe overlayfs
     mkdir upper lower  # upper=overlay, lower=base squashfs, mount on ${rootmnt}
     mount -t tmpfs tmpfs upper  # put overlay files into a tmpfs so they don't get blown away on switch_root
-	CB=$(cat /proc/cmdline)
-	CB="${CB##*API_CB=}"
-	CB="${CB%% *}"
-	BASEFS=$(cat /proc/cmdline)
-	BASEFS="${BASEFS##*BASEFS=}"
-	BASEFS="${BASEFS%% *}"
-	OVERLAYFS=$(cat /proc/cmdline)
-	OVERLAYFS="${OVERLAYFS##*OVERLAYFS=}"
-	OVERLAYFS="${OVERLAYFS%% *}"
-	echo "downloading squashfs from http://${CB}/${BASEFS}"
-	logger "downloading squashfs from http://${CB}/${BASEFS}"
-	curl http://${CB}/${BASEFS} -o base.squashfs.img
-    echo "downloading overlay from http://${CB}/${OVERLAYFS}"
-    logger "downloading overlay from http://${CB}/${OVERLAYFS}"
+    BASEFS=$(cat /proc/cmdline)
+    BASEFS="${BASEFS##*BASEFS=}"
+    BASEFS="${BASEFS%% *}"
+    OVERLAYFS=$(cat /proc/cmdline)
+    OVERLAYFS="${OVERLAYFS##*OVERLAYFS=}"
+    OVERLAYFS="${OVERLAYFS%% *}"
+    echo "downloading squashfs from ${BASEFS}"
+    logger "downloading squashfs from ${BASEFS}"
+    curl ${BASEFS} -o base.squashfs.img
+    echo "downloading overlay from ${OVERLAYFS}"
+    logger "downloading overlay from ${OVERLAYFS}"
     cd upper
-    curl http://${CB}/${OVERLAYFS} | gzip -d -c | cpio -i
+    curl ${OVERLAYFS} | gzip -d -c | cpio -i
     cd ..
     echo "Mounting base squashfs"
     logger "Mounting base squashfs"
