@@ -28,14 +28,14 @@ elif [[ "${BRANCH}" == *"release"* ]]; then
 fi
 
 #When a tag like "release-1.2.3" is pushed, do release
-if [ -n "$TRAVIS_TAG" ] && [[ "$TRAVIS_TAG" =~ ^release\-([0-9.]+) ]]; then
+if [ -n "$TRAVIS_TAG" ] && [[ "$TRAVIS_TAG" =~ ^release\/([0-9.]+) ]]; then
    SYMBOL=release
 fi
 
 #Generate var DEBBRANCH
 #Version in changelog will be assigned when branch created
 #The version in pushed tag will be exactly the same with that in changelog
-VERSION=$(dpkg-parsechangelog --show-field Version)
+VERSION=$(dpkg-parsechangelog | grep ^Version | cut -d' ' -f2 | cut -d'-' -f1)
 GITCOMMITDATE=$(git show -s --pretty="format:%ci")
 DATESTRING=$(date -d "$GITCOMMITDATE" -u +"%Y%m%d%H%M%SZ")
 HASH=$(git rev-parse --short HEAD)

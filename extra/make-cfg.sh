@@ -14,6 +14,6 @@ if [[ $DEBBRANCH =~ ^[0-9.]+$ ]]; then
 else
     COMPONENT=main
 fi
-sed -e "s/#REVISION#/${DEBBRANCH}/g" \
+sed -e "s/#REVERSION#/${DEBBRANCH}/g" \
     -e "s/#COMPONENT#/${COMPONENT}/g" \
     .bintray-deb.json.in > .bintray-deb.json

@@ -26,7 +26,8 @@ deploy:
     key: $BINTRAY_KEY
     on:
       all_branches: true
-      condition: "$TRAVIS_TAG =~ ^[0-9.]+$ || -n $TRAVIS_BRANCH"
+      condition: ${TRAVIS_BRANCH} == master || ${TRAVIS_BRANCH} =~ ^release\/([0-9.]+)
+      
   - provider: bintray
     file: .bintray-gen.json
     user: $BINTRAY_USER

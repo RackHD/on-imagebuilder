@@ -1,6 +1,6 @@
 {
     "package": {
-        "name": "on-imagebuilder",
+        "name": "on-image",
         "repo": "debian", 
         "subject": "rackhd",
         "vcs_url": "https://github.com/RackHD/on-imagebuilder.git",
@@ -8,13 +8,14 @@
     },
 
     "version": {
-        "name": "#REVISION#"
+        "name": "#REVERSION#"
     },
 
     "files":
         [
             {
-                "includePattern": "deb/(.*)", "uploadPattern": "$1", 
+                "includePattern": "deb/(.*)", 
+                "uploadPattern": "$1", 
                 "matrixParams": 
                 { 
                     "override": 1, 
