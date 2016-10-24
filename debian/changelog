@@ -1,0 +1,6 @@
+on-image-common (1.2.3) UNRELEASED; urgency=low
+
+  [ Alan Wei ]
+  * Initial release
+
+ -- Alan Wei <alan.wei@emc.com>  Fri, 14 Oct 2016 03:52:50 +0000

@@ -1,0 +1,29 @@
+{
+    "package": {
+        "name": "on-image",
+        "repo": "debian", 
+        "subject": "rackhd",
+        "vcs_url": "https://github.com/RackHD/on-imagebuilder.git",
+        "licenses": ["Apache-2.0"]
+    },
+
+    "version": {
+        "name": "#REVERSION#"
+    },
+
+    "files":
+        [
+            {
+                "includePattern": "deb/(.*)", 
+                "uploadPattern": "$1", 
+                "matrixParams": 
+                { 
+                    "override": 1, 
+                    "deb_distribution": "trusty",
+                    "deb_component": "#COMPONENT#",
+                    "deb_architecture": "amd64"
+                }
+            }
+        ],
+    "publish": true
+}

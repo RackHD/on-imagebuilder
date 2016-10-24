@@ -1,6 +1,12 @@
 language: bash
 sudo: required
 dist: trusty
+addons:
+  apt:
+    packages:
+      - dh-make
+      - devscripts
+      - debhelper
 before_script:
 - sudo apt-get update -q
 - sudo pip install ansible==2.0.2.0
@@ -11,13 +17,23 @@ before_deploy:
 - sudo chmod 644 /tmp/on-imagebuilder/builds/*
 - sudo chmod 644 /tmp/on-imagebuilder/ipxe/*
 - sudo chmod 644 /tmp/on-imagebuilder/syslinux/*
+- ./extra/make-cfg.sh
+- ./extra/make-deb.sh
 deploy:
-  provider: bintray
-  file: .bintray.json
-  user: $BINTRAY_USER
-  key: $BINTRAY_KEY
-  on:
-    all_branches: true
+  - provider: bintray
+    file: .bintray-deb.json
+    user: $BINTRAY_USER
+    key: $BINTRAY_KEY
+    on:
+      all_branches: true
+      condition: ${TRAVIS_BRANCH} == master || ${TRAVIS_BRANCH} =~ ^release\/([0-9.]+)
+      
+  - provider: bintray
+    file: .bintray-gen.json
+    user: $BINTRAY_USER
+    key: $BINTRAY_KEY
+    on:
+      branch: master
 
 notifications:
   slack:
