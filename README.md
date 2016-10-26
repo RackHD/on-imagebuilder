@@ -48,6 +48,15 @@ filesystem with some added configurations and packages. It is ~50mb squashed
 and occupies ~120mb of space when mounted. The base image[s] are used as a shared
 image that different overlays can be built and mounted with, and take 3-5 minutes to build.
 
+**base image large**
+
+This is a standard debian file filesystem packaged up as a mountable squashfs image.
+Essentially, it's just a [debootstrap](https://wiki.debian.org/Debootstrap)
+filesystem with some added configurations and packages. It is ~64mb squashed
+and occupies ~220mb of space when mounted. This larger base image is not built by default,
+but if built, can be used with the same overlays as the smaller base image. It takes 3-5
+minutes to build. 
+
 **overlay filesystem**
 
 The overlay filesystem is a gzipped cpio archive of copy-on-write changes made to

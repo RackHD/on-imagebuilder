@@ -2,7 +2,7 @@
 - name: Create debian rootfs
   command: debootstrap
            --arch={{ debootstrap_arch }}
-           --variant=minbase
+           {{ debootstrap_variant }}
            --include={{ ansible_dependencies }}
            --exclude={{ basefs_exclude_packages }}
            {{ debootstrap_release }}
