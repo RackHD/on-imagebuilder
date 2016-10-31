@@ -4,10 +4,10 @@ set -e
 # build initrd
 sudo ansible-playbook -i hosts common/initrd_wrapper.yml -e "config_file=vars/initrd.yml provisioner=roles/initrd/provision_initrd"
 
-# build basefs
+# build minbasefs
 sudo ansible-playbook -i hosts common/basefs_wrapper.yml -e "config_file=vars/basefs.yml provisioner=roles/basefs/provision_rootfs"
 
-# build full basefs (example)
+# build full basefs
 sudo ansible-playbook -i hosts common/basefs_wrapper.yml -e "config_file=vars/basefs-full.yml provisioner=roles/basefs/provision_rootfs"
 
 # build discovery overlay

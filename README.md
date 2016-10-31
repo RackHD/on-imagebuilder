@@ -41,7 +41,7 @@ Overview
 
 ### Terms
 
-**base image**
+**minbase image**
 
 This is a lightweight debian filesystem packaged up as a mountable squashfs image.
 Essentially, it's just a [debootstrap](https://wiki.debian.org/Debootstrap) minbase
@@ -49,7 +49,7 @@ filesystem with some added configurations and packages. It is ~50mb squashed
 and occupies ~120mb of space when mounted. The base image[s] are used as a shared
 image that different overlays can be built and mounted with, and take 3-5 minutes to build.
 
-**base image large**
+**base image**
 
 This is a standard debian file filesystem packaged up as a mountable squashfs image.
 Essentially, it's just a [debootstrap](https://wiki.debian.org/Debootstrap)
