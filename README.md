@@ -31,6 +31,7 @@ the next steps, below is an example of removing an existing dpkg installation bu
     sudo apt-get -y update
     sudo pip install ansible==2.0.2.0
     ```
+    
 - Internet access OR network access to an apt cache/proxy server from the build machine
 
 <br>
@@ -40,13 +41,22 @@ Overview
 
 ### Terms
 
-**base image**
+**minbase image**
 
 This is a lightweight debian filesystem packaged up as a mountable squashfs image.
 Essentially, it's just a [debootstrap](https://wiki.debian.org/Debootstrap) minbase
 filesystem with some added configurations and packages. It is ~50mb squashed
 and occupies ~120mb of space when mounted. The base image[s] are used as a shared
 image that different overlays can be built and mounted with, and take 3-5 minutes to build.
+
+**base image**
+
+This is a standard debian file filesystem packaged up as a mountable squashfs image.
+Essentially, it's just a [debootstrap](https://wiki.debian.org/Debootstrap)
+filesystem with some added configurations and packages. It is ~64mb squashed
+and occupies ~220mb of space when mounted. This larger base image can be used for
+applications that require more than minbase provides, and should be fully compatible
+with any overlays built against minbase. It takes 3-5 minutes to build. 
 
 **overlay filesystem**
 
