@@ -8,6 +8,12 @@
 set -e
 output_path=/tmp/on-imagebuilder
 
+# $1 should be a file which contains the release version.
+# For example:  PKG_VERSION=1.2.3-rc-abc...
+if [ -f "$1" ];then
+    source $1
+fi
+
 #build static files
 sudo ./build_all.sh
 
@@ -15,7 +21,7 @@ sudo ./build_all.sh
 rm -rf on-static-common*
 rm -rf packagebuild
 mkdir packagebuild
-cd packagebuild
+pushd packagebuild
 
 mkdir common
 mkdir pxe
@@ -28,19 +34,18 @@ sudo cp $output_path/builds/* common/
 sudo cp $output_path/syslinux/* pxe/
 sudo cp $output_path/ipxe/* pxe/
 rsync -av ../debian .
-#generate package version
-GITCOMMITDATE=$(git show -s --pretty="format:%ci")
-DATESTRING=$(date -d "$GITCOMMITDATE" -u +"%Y-%m-%d-%H%M%SZ")
-
-PKG_VERSION="$DATESTRING"
-if [ -n "$BUILD_NUMBER" ]
-then
-  PKG_VERSION="${PKG_VERSION}-${BUILD_NUMBER}"
-fi
 
 export DEBEMAIL="hwimo robots <hwimo@hwimo.lab.emc.com>"
 export DEBFULLNAME="The HWIMO Robots"
 
-# build files in packagebuild into a debian package 
-dch -v ${PKG_VERSION} autobuild
+if [ ! -z "$PKG_VERSION" ];then
+    if [[ $PKG_VERSION =~ ^[0-9.]+$ ]];then
+        dch -r ""
+    else
+        COMMIT_STR=`git log -n 1 --oneline`
+        dch -v $PKG_VERSION -u low $COMMIT_STR -b -m
+    fi
+fi
+
 debuild --no-lintian --no-tgz-check -us -uc
+popd
