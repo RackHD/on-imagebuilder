@@ -1,10 +1,26 @@
-FROM gliderlabs/alpine
-# Install any dependencies needed
-RUN apk update && \
-    apk add bash sed dmidecode ruby ruby-irb open-lldp util-linux open-vm-tools sudo smartmontools && \
-    apk add lshw ipmitool nodejs curl pciutils lsscsi --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
-    echo "install: --no-rdoc --no-ri" > /etc/gemrc && \
-    gem install json_pure daemons && \
-    apk add --virtual build_deps build-base ruby-dev libc-dev libffi-dev && gem install ohai && apk del build_deps 
+FROM debian:wheezy
+
+RUN apt-get update && apt-get install -y \
+               ipmitool \
+               curl \
+               vim-tiny \
+               less \
+               ca-certificates \
+               sudo \
+               dmidecode \
+               lshw \
+               lsscsi \
+               pciutils \
+               ethtool \
+               smartmontools \
+               ohai \
+               lldpd \
+               hdparm \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV NODE_VERSION 4.6.2
+RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz" \
+    && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 \
+    && rm "node-v$NODE_VERSION-linux-x64.tar.gz"
 ADD entry.bash /usr/local/bin/
 CMD /usr/local/bin/entry.bash
