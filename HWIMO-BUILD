@@ -27,9 +27,9 @@ mkdir pxe
 sudo chmod 644 /tmp/on-imagebuilder/builds/*
 sudo chmod 644 /tmp/on-imagebuilder/ipxe/*
 sudo chmod 644 /tmp/on-imagebuilder/syslinux/*
-sudo cp $output_path/builds/* common/
-sudo cp $output_path/syslinux/* pxe/
-sudo cp $output_path/ipxe/* pxe/
+cp $output_path/builds/* common/
+cp $output_path/syslinux/* pxe/
+cp $output_path/ipxe/* pxe/
 rsync -av ../debian .
 
 export DEBEMAIL="hwimo robots <hwimo@hwimo.lab.emc.com>"
@@ -39,7 +39,7 @@ export DEBFULLNAME="The HWIMO Robots"
 # compute it as below:
 if [ -z "$PKG_VERSION" ];then
     GIT_COMMIT_DATE=$(git show -s --pretty="format:%ci")
-    DATE_STRING=$(date -d "$GIT_COMMIT_DATE" -u +"%Y%m%d%H%M%SZ")
+    DATE_STRING=$(date -d "$GIT_COMMIT_DATE" -u +"%Y%m%dUTC")
 
     GIT_COMMIT_HASH=$(git show -s --pretty="format:%h")
 
