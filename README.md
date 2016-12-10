@@ -27,8 +27,8 @@ the next steps, below is an example of removing an existing dpkg installation bu
 - Install ansible:
 
     ```
-    sudo apt-get -y install python-software-properties python-pip
     sudo apt-get -y update
+    sudo apt-get -y install python-software-properties python-pip python-dev libffi-dev
     sudo pip install ansible==2.0.2.0
     ```
     
