@@ -1,6 +1,6 @@
-FROM debian:wheezy
+FROM debian:jessie
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
                ipmitool \
                curl \
                vim-tiny \
@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
                ohai \
                lldpd \
                hdparm \
+               udev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_VERSION 4.6.2
