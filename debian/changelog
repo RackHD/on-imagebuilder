@@ -1,4 +1,4 @@
-on-image-common (1.2.3) UNRELEASED; urgency=low
+on-imagebuilder (1.1-1) UNRELEASED; urgency=low
 
   [ Alan Wei ]
   * Initial release
