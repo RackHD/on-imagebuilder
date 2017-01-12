@@ -1,6 +1,6 @@
 {
     "package": {
-        "name": "on-image",
+        "name": "on-imagebuilder",
         "repo": "debian", 
         "subject": "rackhd",
         "vcs_url": "https://github.com/RackHD/on-imagebuilder.git",
