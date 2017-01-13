@@ -8,12 +8,7 @@ cd $SCRIPT_DIR/..
 
 #Modify bintray cfg
 #Use different COMPONENT to differ the apt source of release and ci-builds
-DEBBRANCH=$(./extra/gen-debbranch.sh)
-if [[ $DEBBRANCH =~ ^[0-9.]+$ ]]; then
-    COMPONENT=release
-else
-    COMPONENT=main
-fi
-sed -e "s/#REVERSION#/${DEBBRANCH}/g" \
-    -e "s/#COMPONENT#/${COMPONENT}/g" \
+VERSION=$(./extra/gen-debversion.sh)
+
+sed -e "s/#REVERSION#/${VERSION}/g" \
     .bintray-deb.json.in > .bintray-deb.json

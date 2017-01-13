@@ -17,8 +17,8 @@ if [ -z "$DEBEMAIL" ]; then
         export DEBEMAIL=`git log -n 1 --pretty=format:%ae`
 fi
 
-if [ -z "$DEBBRANCH" ]; then
-        export DEBBRANCH=$(./extra/gen-debbranch.sh)
+if [ -z "$DEBVERSION" ]; then
+        export DEBVERSION=$(./extra/gen-debversion.sh)
 fi
 
 if [ -z "$DEBPKGVER" ]; then
@@ -26,21 +26,13 @@ if [ -z "$DEBPKGVER" ]; then
 fi
 
 if [ -z "$DCHOPTS" ]; then
-        if [[ $DEBBRANCH =~ ^[0-9.]+$ ]]; then
-                #Use "dch -r" do release, "UNRELEASED" in changelog will be set to "unstable"
-                #or any other predefined distribution, the timestamp will be updated too.
-                export DCHOPTS="-r \"\""
-        else    
-                #Use "dch -v -u -b" do ci-builds
-                export DCHOPTS="-v ${DEBBRANCH} -u low ${DEBPKGVER} -b"
-        fi
-        
+        export DCHOPTS="-v ${DEBVERSION} -u low ${DEBPKGVER} -b -m"
 fi
 
 echo "DEBDIR:       $DEBDIR"
 echo "DEBFULLNAME:  $DEBFULLNAME"
 echo "DEBEMAIL:     $DEBEMAIL"
-echo "DEBBRANCH:    $DEBBRANCH"
+echo "DEBVERSION:   $DEBVERSION"
 echo "DEBPKGVER:    $DEBPKGVER"
 echo "DCHOPTS:      $DCHOPTS"
 
