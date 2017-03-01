@@ -12,4 +12,4 @@ secure_erase_overlay_package_manifest:
     - { package: "gdisk", version: "0.8.8-1ubuntu0.1"}
 
 secure_erase_overlay_storcli_package: "storcli_1.17.08_all.deb"
-secure_erase_overlay_perccli_package: "perccli_1.11.03-2_all.deb"
+secure_erase_overlay_perccli_package: "perccli_1.11.03-1_all.deb"
