@@ -31,7 +31,7 @@ the next steps, below is an example of removing an existing dpkg installation bu
     sudo apt-get -y install python-software-properties python-pip python-dev libffi-dev
     sudo pip install ansible==2.0.2.0
     ```
-    
+
 - Internet access OR network access to an apt cache/proxy server from the build machine
 
 <br>
@@ -120,8 +120,18 @@ The build artifacts will be located in these directories below (which are define
 - **syslinux**/undionly.kkpxe 
 
 
-- Note: OEM role provision_raid_overlay requires storcli_1.17.08_all.deb being copied into
-  common/files. User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip.
+- Note: 
+  * OEM roles provision_raid_overlay and provision_secure_erase_overlay require storcli_1.17.08_all.deb being copied into common/files. 
+    User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip.
+  * OEM roles provision_dell_raid_overlay and provision_secure_erase_overlay require perccli_1.11.03-1_all.deb being copied into common/files. 
+    There is no .deb version perccli tool. User can download .rpm perccli from 
+    https://downloads.dell.com/FOLDER02444760M/1/perccli-1.11.03-1_Linux_A00.tar.gz
+    unzip the package and then use **alien** to get a .deb version perccli tool as below:
+
+    ```
+    sudo apt-get install alien
+    sudo alien -k perccli-1.11.03-1.noarch.rpm
+    ```
 
 ### Adding provisioner roles and configuration files
 
