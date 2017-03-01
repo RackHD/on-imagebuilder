@@ -14,4 +14,4 @@ raid_overlay_package_manifest:
   - { package: "initramfs-tools", version: "0.103ubuntu4.4"}
   - { package: "apt-utils",       version: "1.0.1ubuntu2.14"}
 
-raid_overlay_perccli_package: "perccli_1.11.03-2_all.deb"
+raid_overlay_perccli_package: "perccli_1.11.03-1_all.deb"
