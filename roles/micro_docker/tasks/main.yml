@@ -1,0 +1,41 @@
+---
+- name: install apt packages
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - docker.io
+    
+- name: setup docker
+  command: "{{item}}"
+  with_items:
+   - ln -sf /usr/bin/docker.io /usr/local/bin/docker
+  sudo: yes
+
+- name: build docker image
+  command: "{{item}}"
+  with_items:
+   - docker build -t rackhd/micro .
+  args:
+    chdir: "./micro-docker"
+  sudo: yes
+
+
+- name: save docker image
+  shell: docker save rackhd/micro | xz -z > ./micro-docker/discovery.docker.tar.xz
+  sudo: yes
+
+- name: copy micro docker file
+  copy:
+    src: "../micro-docker/discovery.docker.tar.xz"
+    dest: "{{ build_artifact_path }}/discovery.docker.tar.xz"
+
+- name: download rancherOS vmlinuz
+  get_url:
+    url: https://github.com/rancher/os/releases/download/v0.5.0/vmlinuz
+    dest: "{{ build_artifact_path }}/vmlinuz-0.5.0-rancher"
+    force_basic_auth: yes
+
+- name: download rancherOS initrd
+  get_url:
+    url: https://github.com/rancher/os/releases/download/v0.5.0/initrd
+    dest: "{{ build_artifact_path }}/initrd-0.5.0-rancher"
+    force_basic_auth: yes
