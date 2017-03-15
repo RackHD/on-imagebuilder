@@ -2,7 +2,7 @@
     "package": {
         "name": "on-imagebuilder",
         "repo": "debian", 
-        "subject": "rackhd",
+        "subject": "rackhd-mirror",
         "vcs_url": "https://github.com/RackHD/on-imagebuilder.git",
         "licenses": ["Apache-2.0"]
     },
@@ -20,7 +20,7 @@
                 { 
                     "override": 1, 
                     "deb_distribution": "trusty",
-                    "deb_component": "#COMPONENT#",
+                    "deb_component": "staging",
                     "deb_architecture": "amd64"
                 }
             }

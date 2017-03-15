@@ -22,11 +22,10 @@ before_deploy:
 deploy:
   - provider: bintray
     file: .bintray-deb.json
-    user: $BINTRAY_USER
-    key: $BINTRAY_KEY
+    user: $MIRROR_BINTRAY_USER
+    key: $MIRROR_BINTRAY_KEY
     on:
-      all_branches: true
-      condition: ${TRAVIS_BRANCH} == master || ${TRAVIS_BRANCH} =~ ^release\/([0-9.]+)
+      branch: master
       
   - provider: bintray
     file: .bintray-gen.json
