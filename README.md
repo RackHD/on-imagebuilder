@@ -120,19 +120,6 @@ The build artifacts will be located in these directories below (which are define
 - **syslinux**/undionly.kkpxe 
 
 
-- Note: 
-  * OEM roles provision_raid_overlay and provision_secure_erase_overlay require storcli_1.17.08_all.deb being copied into common/files. 
-    User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip.
-  * OEM roles provision_dell_raid_overlay and provision_secure_erase_overlay require perccli_1.11.03-1_all.deb being copied into common/files. 
-    There is no .deb version perccli tool. User can download .rpm perccli from 
-    https://downloads.dell.com/FOLDER02444760M/1/perccli-1.11.03-1_Linux_A00.tar.gz
-    unzip the package and then use **alien** to get a .deb version perccli tool as below:
-
-    ```
-    sudo apt-get install alien
-    sudo alien -k perccli-1.11.03-1.noarch.rpm
-    ```
-
 ### Adding provisioner roles and configuration files
 
 The provisioner role is what specifies how the filesystem of an initrd, base
@@ -157,7 +144,8 @@ If you have experience with Ansible, some of these steps will be familiar:
     ```
   The wrapper playbooks handle all the setup and cleanup required to run a
   provisioner, such as filesystem mounting and creation, and build file creation.
-- **NOTE**: the customized overlay depends on initrd and basefs build result, that said, before running the overlay playbook, below playbook should run firstly:
+- **NOTE**: 
+  * The customized overlay depends on initrd and basefs build result, that said, before running the overlay playbook, below playbook should run firstly:
 
     ```
     sudo ansible-playbook -i hosts common/initrd_wrapper.yml \
@@ -166,8 +154,34 @@ If you have experience with Ansible, some of these steps will be familiar:
     sudo ansible-playbook -i hosts common/basefs_wrapper.yml \
     -e "config_file=vars/basefs.yml provisioner=roles/basefs/provision_rootfs"
     ```
+    So it should run `build_all.sh` which include inirtd and basefs playbook before `build_oem.sh`.
+  * OEM roles provision_raid_overlay and provision_secure_erase_overlay require storcli_1.17.08_all.deb being copied into common/files.
+    User can download it from http://docs.avagotech.com/docs/1.17.08_StorCLI.zip.
+    Tool name ***storcli_1.17.08_all.deb*** is hard coded.
+    If a package with different name is to be used, user should edit configure file in var/oem.
+    For example if user wants to use storcli.15.03_all.deb instead of storcli_1.17.08_all.deb for secure erase, user should edit vars/oem/secure_erase_overlay.yml and replace below line:
 
-  so it should run `build_all.sh` which include inirtd and basefs playbook before `build_oem.sh`
+    ```
+    secure_erase_overlay_storcli_package: "storcli_1.17.08_all.deb"
+    ```
+
+    with:
+
+    ```
+    secure_erase_overlay_storcli_package: "storcli_1.15.03_all.deb"
+    ```
+    There is no requirement on tool name format. It is that secure_erase_overlay_storcli_package value should be exactly the same with the package file name stored in common/files.
+
+  * OEM roles provision_dell_raid_overlay and provision_secure_erase_overlay require perccli_1.11.03-1_all.deb being copied into common/files.
+    There is no .deb version perccli tool. User can download .rpm perccli from:
+    https://downloads.dell.com/FOLDER02444760M/1/perccli-1.11.03-1_Linux_A00.tar.gz
+    unzip the package and then use **alien** to get a .deb version perccli tool as below:
+
+    ```
+    sudo apt-get install alien
+    sudo alien -k perccli-1.11.03-1.noarch.rpm
+    ```
+    Again, user can use a different perccli package via aligning its name in configure files of vars/oem and common/files.
 
 ### Changing the global configuration
 
