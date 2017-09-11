@@ -1,0 +1,31 @@
+---
+
+- name: Create build output directory
+  file: path={{ build_artifact_path }} state=directory
+
+- name: build docker image
+  command: "{{item}}"
+  with_items:
+   - docker build -t rackhd/micro .
+  args:
+    chdir: "{{ playbook_dir }}/../micro-docker"
+  sudo: yes
+
+- name: save docker image
+  shell: docker save rackhd/micro | xz -z > {{ playbook_dir }}/../micro-docker/discovery.docker.tar.xz
+  sudo: yes
+
+- name: copy micro docker file
+  copy:
+    src: "{{ playbook_dir }}/../micro-docker/discovery.docker.tar.xz"
+    dest: "{{ build_artifact_path }}/discovery.docker.tar.xz"
+
+- name: download rancherOS vmlinuz
+  get_url:
+    url: https://github.com/rancher/os/releases/download/v0.5.0/vmlinuz
+    dest: "{{ build_artifact_path }}/vmlinuz-0.5.0-rancher"
+
+- name: download rancherOS initrd
+  get_url:
+    url: https://github.com/rancher/os/releases/download/v0.5.0/initrd
+    dest: "{{ build_artifact_path }}/initrd-0.5.0-rancher"

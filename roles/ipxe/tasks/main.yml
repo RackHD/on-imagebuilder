@@ -28,7 +28,7 @@
   sudo: yes
 
 - name: check out iPXE source repository
-  git:  repo=https://git.ipxe.org/ipxe.git
+  git:  repo=https://github.com/ipxe/ipxe
         dest="{{ ipxe_build_env_path }}/ipxe"
         force=yes accept_hostkey=yes
         version={{ gitbranch }}

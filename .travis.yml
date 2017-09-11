@@ -1,6 +1,8 @@
 language: bash
 sudo: required
 dist: trusty
+services:
+  - docker
 addons:
   apt:
     packages:
