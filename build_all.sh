@@ -13,6 +13,9 @@ sudo ansible-playbook -i hosts common/basefs_wrapper.yml -e "config_file=vars/ba
 # build discovery overlay
 sudo ansible-playbook -i hosts common/overlay_wrapper.yml -e "config_file=vars/discovery_overlay.yml provisioner=roles/overlay/provision_discovery_overlay"
 
+# build micro-docker
+sudo ansible-playbook -i hosts common/docker_builder.yml
+
 # build ipxe
 sudo ansible-playbook -i hosts common/ipxe_builder.yml -e "config_file=vars/ipxe.yml"
 
