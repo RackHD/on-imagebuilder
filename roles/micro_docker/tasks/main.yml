@@ -22,10 +22,10 @@
 
 - name: download rancherOS vmlinuz
   get_url:
-    url: https://github.com/rancher/os/releases/download/v0.5.0/vmlinuz
-    dest: "{{ build_artifact_path }}/vmlinuz-0.5.0-rancher"
+    url: https://github.com/rancher/os/releases/download/v1.0.2/vmlinuz
+    dest: "{{ build_artifact_path }}/vmlinuz-1.0.2-rancher"
 
 - name: download rancherOS initrd
   get_url:
-    url: https://github.com/rancher/os/releases/download/v0.5.0/initrd
-    dest: "{{ build_artifact_path }}/initrd-0.5.0-rancher"
+    url: https://github.com/rancher/os/releases/download/v1.0.2/initrd
+    dest: "{{ build_artifact_path }}/initrd-1.0.2-rancher"
