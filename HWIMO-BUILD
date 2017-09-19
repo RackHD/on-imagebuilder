@@ -10,7 +10,7 @@
 
 set -e
 output_path=/tmp/on-imagebuilder
-
+bintray_repo=http://dl.bintray.com/rackhd/binary/builds
 #build static files
 sudo ./build_all.sh
 
@@ -22,6 +22,14 @@ pushd packagebuild
 
 mkdir common
 mkdir pxe
+
+#add Microkernel images from bintray
+pushd $output_path/builds/
+wget $bintray_repo/base.trusty.3.16.0-25-generic.squashfs.img
+wget $bintray_repo/discovery.overlay.cpio.gz
+wget $bintray_repo/initrd.img-3.16.0-25-generic
+wget $bintray_repo/vmlinuz-3.16.0-25-generic
+popd
 
 #copy static files
 sudo chmod 644 /tmp/on-imagebuilder/builds/*
