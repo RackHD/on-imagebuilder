@@ -10,6 +10,8 @@
 
 set -e
 output_path=/tmp/on-imagebuilder
+rm -rf $output_path
+mkdir -p $output_path
 bintray_repo=http://dl.bintray.com/rackhd/binary/builds
 #build static files
 sudo ./build_all.sh
