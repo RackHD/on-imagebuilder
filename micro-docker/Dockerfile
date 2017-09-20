@@ -2,12 +2,14 @@ FROM debian:jessie
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
                ipmitool \
+               python \
                curl \
                vim-tiny \
                less \
                ca-certificates \
                sudo \
                dmidecode \
+               ifupdown \
                lshw \
                lsscsi \
                pciutils \
