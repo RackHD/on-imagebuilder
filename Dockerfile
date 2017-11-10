@@ -1,3 +1,4 @@
+ # Copyright 2017, Dell EMC, Inc.
 FROM alpine:latest
 
 # on-imagebuilder docker build just package the static files into an image.
