@@ -9,7 +9,6 @@ FROM alpine:latest
 
 ARG common_files=./common/*
 ARG pxe_files=./pxe/*
-
 RUN mkdir -p /RackHD/downloads
 COPY ${pxe_files} /RackHD/downloads/
 
