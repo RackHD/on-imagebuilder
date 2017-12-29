@@ -8,7 +8,7 @@
   with_items:
    - docker build -t rackhd/micro .
   args:
-    chdir: "{{ playbook_dir }}/../micro-docker"
+    chdir: "{{ playbook_dir }}/../micro-docker/discovery"
   sudo: yes
 
 - name: save docker image
