@@ -1,23 +1,37 @@
 #!/bin/bash
 set -e
 
-# build initrd
-#sudo ansible-playbook -i hosts common/initrd_wrapper.yml -e "config_file=vars/initrd.yml provisioner=roles/initrd/provision_initrd"
+BUILD_ARTIFACT_PATH=/tmp/on-imagebuilder/builds
+IPXE_BUILD_ARTIFACT_PATH=/tmp/on-imagebuilder/ipxe
+SYSLINUX_BUILD_ARTIFACT_PATH=/tmp/on-imagebuilder/syslinux
+RANCHER_VERSION=1.0.2
 
-# build minbasefs
-#sudo ansible-playbook -i hosts common/basefs_wrapper.yml -e "config_file=vars/basefs.yml provisioner=roles/basefs/provision_rootfs"
+mkdir -p $BUILD_ARTIFACT_PATH
+mkdir -p $IPXE_BUILD_ARTIFACT_PATH
+mkdir -p $SYSLINUX_BUILD_ARTIFACT_PATH
 
-# build full basefs
-#sudo ansible-playbook -i hosts common/basefs_wrapper.yml -e "config_file=vars/basefs-full.yml provisioner=roles/basefs/provision_rootfs"
+wget https://github.com/rancher/os/releases/download/v${RANCHER_VERSION}/vmlinuz -O $BUILD_ARTIFACT_PATH/vmlinuz-${RANCHER_VERSION}-rancher
+wget https://github.com/rancher/os/releases/download/v${RANCHER_VERSION}/initrd -O $BUILD_ARTIFACT_PATH/initrd-${RANCHER_VERSION}-rancher
 
-# build discovery overlay
-#sudo ansible-playbook -i hosts common/overlay_wrapper.yml -e "config_file=vars/discovery_overlay.yml provisioner=roles/overlay/provision_discovery_overlay"
-
-# build micro-docker
-sudo ansible-playbook -i hosts common/docker_builder.yml
+# build docker image for discovery
+pushd micro-docker/discovery
+sudo docker build -t rackhd/micro .
+sudo docker save rackhd/micro | xz -z > discovery.docker.tar.xz
+cp discovery.docker.tar.xz $BUILD_ARTIFACT_PATH
+popd
 
 # build ipxe
-sudo ansible-playbook -i hosts common/ipxe_builder.yml -e "config_file=vars/ipxe.yml"
+pushd micro-docker/ipxe
+sudo docker build -t rackhd/ipxe .
+sudo docker run -d --name rackhd-ipxe rackhd/ipxe
+sudo docker cp rackhd-ipxe:/build-ipxe-artifact-path/. $IPXE_BUILD_ARTIFACT_PATH
+sudo docker rm -f rackhd-ipxe
+popd
 
 # syslinx ipxe
-sudo ansible-playbook -i hosts common/syslinux_builder.yml -e "config_file=vars/syslinux.yml"
+pushd micro-docker/syslinux
+sudo docker build -t rackhd/syslinux .
+sudo docker run -d --name rackhd-syslinux rackhd/syslinux
+sudo docker cp rackhd-syslinux:/build-syslinux-artifact-path/. $SYSLINUX_BUILD_ARTIFACT_PATH
+sudo docker rm -f rackhd-syslinux
+popd

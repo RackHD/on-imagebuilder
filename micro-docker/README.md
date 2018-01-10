@@ -1,20 +1,22 @@
 # Micro Docker
 
-## RancherOS vmlinuz
+## RancherOS kernel
+
+### RancherOS vmlinuz
 
 ```
 wget https://github.com/rancher/os/releases/download/v1.0.2/vmlinuz -O vmlinuz-1.0.2-rancher
 copy vmlinuz-1.0.2-rancher to on-http/static/http/common
 ```
 
-## RancherOS initrd
+### RancherOS initrd
 
 ```
 wget https://github.com/rancher/os/releases/download/v1.0.2/initrd -O initrd-1.0.2-rancher
 copy initrd-1.0.2-rancher to on-http/static/http/common
 ```
 
-## Discovery Image
+### Discovery Image
 
 ```
 cd discovery
@@ -23,7 +25,29 @@ sudo docker save rackhd/micro | xz -z > discovery.docker.tar.xz
 copy discovery.docker.tar.xz to on-http/static/http/common
 ```
 
-## Secure Erase Image
+## Build ipxe
+
+### ipxe
+
+```
+cd ipxe
+sudo docker build -t rackhd/ipxe .
+sudo docker run -d --name rackhd-ipxe rackhd/ipxe
+sudo docker cp rackhd-ipxe:/build-ipxe-artifact-path .
+```
+
+### syslinux ipxe
+
+```
+cd syslinux
+sudo docker build -t rackhd/syslinux .
+sudo docker run -d --name rackhd-syslinux rackhd/syslinux
+sudo docker cp rackhd-syslinux:/build-syslinux-artifact-path .
+```
+
+## OEM docker image
+
+### Secure Erase Image
 
 ```
 cd secure-erase
@@ -34,7 +58,7 @@ sudo docker save rackhd/micro | xz -z > secure.erase.docker.tar.xz
 copy secure.erase.docker.tar.xz to on-http/static/http/common
 ```
 
-## Intel Flash Image
+### Intel Flash Image
 
 ```
 cd intel-flash
@@ -43,7 +67,7 @@ sudo docker save rackhd/micro | xz -z > intel.flash.docker.tar.xz
 copy intel.flash.docker.tar.xz to on-http/static/http/common
 ```
 
-## Quanta Flash Image
+### Quanta Flash Image
 
 ```
 cd quanta-flash

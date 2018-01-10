@@ -9,6 +9,17 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
                ca-certificates \
                sudo \
                ifupdown \
+               dmidecode \
+               lshw \
+               lsscsi \
+               pciutils \
+               ethtool \
+               smartmontools \
+               ohai \
+               lldpd \
+               initramfs-tools \
+               apt-utils \
+               hdparm \
                udev \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,14 +28,10 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x
     && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 \
     && rm "node-v$NODE_VERSION-linux-x64.tar.gz"
 
-RUN mkdir -p /opt/ami \
-    && mkdir -p /opt/socflash
-
-ADD ami /opt/ami
-ADD socflash /opt/socflash
-
-RUN chmod 755 /opt/ami/* \
-    && chmod 755 /opt/socflash/*
+ARG PERCCLI=perccli_1.11.03-1_all.deb
+ADD $PERCCLI .
+RUN dpkg -i $PERCCLI \
+    && rm $PERCCLI
 
 ADD entry.bash /usr/local/bin/
 CMD /usr/local/bin/entry.bash
