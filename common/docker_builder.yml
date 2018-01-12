@@ -1,4 +1,0 @@
----
-- hosts: build_local
-  roles:
-    - ../roles/micro_docker

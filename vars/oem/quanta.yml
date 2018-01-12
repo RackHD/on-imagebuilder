@@ -1,3 +1,0 @@
-# provisioner: roles/oem/overlay/provision_quanta_flashing_overlay
-
-overlayfs_archive_name: "flash_quanta.overlay.cpio"
