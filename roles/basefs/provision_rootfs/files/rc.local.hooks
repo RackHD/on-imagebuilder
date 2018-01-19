@@ -1,5 +1,0 @@
-sudo insmod /opt/drivers/ipmi_msghandler.ko
-sudo insmod /opt/drivers/ipmi_watchdog.ko
-sudo insmod /opt/drivers/ipmi_poweroff.ko
-sudo insmod /opt/drivers/ipmi_devintf.ko
-sudo insmod /opt/drivers/ipmi_si.ko

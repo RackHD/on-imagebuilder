@@ -1,6 +1,0 @@
----
-- name: Make rootfs build directory path
-  file: path={{ build_root }} state=directory mode=0755
-
-- name: Mount rootfs build directory
-  shell: mount -t tmpfs -o size={{ build_root_size }} tmpfs {{ build_root }}
