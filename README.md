@@ -17,7 +17,7 @@ Overview
 
 ### Bootstrap process
 
-The docker images produced by these scripts are intended to be netbooted and run in RAM.
+The images produced by these scripts are intended to be netbooted and run in RAM.
 The typical flow for how these images are used/booted is this:
 
 - Netboot `RacherOS`(kernel and initrd) via PXE/iPXE

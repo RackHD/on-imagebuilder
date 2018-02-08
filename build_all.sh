@@ -4,7 +4,7 @@ set -e
 BUILD_ARTIFACT_PATH=/tmp/on-imagebuilder/builds
 IPXE_BUILD_ARTIFACT_PATH=/tmp/on-imagebuilder/ipxe
 SYSLINUX_BUILD_ARTIFACT_PATH=/tmp/on-imagebuilder/syslinux
-RANCHER_VERSION=1.0.2
+RANCHER_VERSION=1.2.0
 
 mkdir -p $BUILD_ARTIFACT_PATH
 mkdir -p $IPXE_BUILD_ARTIFACT_PATH
